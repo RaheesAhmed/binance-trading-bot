@@ -1,0 +1,93 @@
+2024-12-28 00:20:21,122 - bot - INFO - Initializing enhanced trading bot...
+2024-12-28 00:20:21,398 - bot - INFO - Enhanced trading bot initialized successfully
+2024-12-28 00:20:21,402 - bot - INFO - ==================================================
+2024-12-28 00:20:21,402 - bot - INFO - Starting Enhanced Binance Trading Bot
+2024-12-28 00:20:21,408 - bot - INFO - Mode: TESTNET (Paper Trading)
+2024-12-28 00:20:21,410 - bot - INFO - Trading pairs: AMBUSDT, ARUSDT, AIUSDT
+2024-12-28 00:20:21,414 - bot - INFO - ==================================================
+2024-12-28 00:20:21,415 - bot - INFO - Starting enhanced trading bot...
+2024-12-28 00:20:21,437 - bot - INFO - Trade executor scheduler started
+2024-12-28 00:20:21,822 - bot - INFO - Initial market regime for AMBUSDT: volatile
+2024-12-28 00:20:22,167 - bot - INFO - Started streaming for AMBUSDT
+2024-12-28 00:20:22,848 - bot - INFO - Initial market regime for ARUSDT: volatile
+2024-12-28 00:20:23,166 - bot - INFO - Started streaming for ARUSDT
+2024-12-28 00:20:23,448 - bot - INFO - Initial market regime for AIUSDT: volatile
+2024-12-28 00:20:23,770 - bot - INFO - Started streaming for AIUSDT
+2024-12-28 00:20:23,771 - bot - INFO - Enhanced trading bot started successfully
+2024-12-28 00:21:02,646 - bot - INFO - Shutdown signal received, stopping bot...
+2024-12-28 00:21:02,646 - bot - INFO - Stopping enhanced trading bot...
+2024-12-28 00:21:02,649 - bot - INFO - Stopped streaming for AMBUSDT
+2024-12-28 00:21:02,651 - bot - INFO - Stopped streaming for ARUSDT
+2024-12-28 00:21:02,656 - bot - INFO - Stopped streaming for AIUSDT
+2024-12-28 00:21:02,656 - bot - INFO - Trade executor scheduler stopped
+2024-12-28 00:21:02,657 - bot - INFO - Performance Summary:
+- Total Trades: 0
+- Win Rate: 0.00%
+- Total PnL: $0.00
+- Max Drawdown: $0.00
+- Risk-Adjusted Return: 0.00
+2024-12-28 00:21:02,658 - bot - INFO - Enhanced trading bot stopped successfully
+2024-12-28 00:21:46,630 - bot - INFO - Initializing enhanced trading bot...
+2024-12-28 00:21:47,256 - bot - INFO - Enhanced trading bot initialized successfully
+2024-12-28 00:21:47,258 - bot - INFO - ==================================================
+2024-12-28 00:21:47,264 - bot - INFO - Starting Enhanced Binance Trading Bot
+2024-12-28 00:21:47,264 - bot - INFO - Mode: TESTNET (Paper Trading)
+2024-12-28 00:21:47,266 - bot - INFO - Trading pairs: AMBUSDT, ARUSDT, AIUSDT
+2024-12-28 00:21:47,269 - bot - INFO - ==================================================
+2024-12-28 00:21:47,271 - bot - INFO - Starting enhanced trading bot...
+2024-12-28 00:21:47,280 - bot - INFO - Trade executor scheduler started
+2024-12-28 00:21:47,638 - bot - INFO - Initial market regime for AMBUSDT: volatile
+2024-12-28 00:21:48,021 - bot - INFO - Started streaming for AMBUSDT
+2024-12-28 00:21:48,632 - bot - INFO - Initial market regime for ARUSDT: volatile
+2024-12-28 00:21:49,001 - bot - INFO - Started streaming for ARUSDT
+2024-12-28 00:21:49,267 - bot - INFO - Initial market regime for AIUSDT: volatile
+2024-12-28 00:21:49,579 - bot - INFO - Started streaming for AIUSDT
+2024-12-28 00:21:49,579 - bot - INFO - Enhanced trading bot started successfully
+2024-12-28 00:22:28,188 - bot - INFO - Shutdown signal received, stopping bot...
+2024-12-28 00:22:28,188 - bot - INFO - Stopping enhanced trading bot...
+2024-12-28 00:22:28,188 - bot - INFO - Stopped streaming for AMBUSDT
+2024-12-28 00:22:28,188 - bot - INFO - Stopped streaming for ARUSDT
+2024-12-28 00:22:28,510 - bot - INFO - Stopped streaming for AIUSDT
+2024-12-28 00:22:28,510 - bot - INFO - Trade executor scheduler stopped
+2024-12-28 00:22:28,512 - bot - INFO - Performance Summary:
+- Total Trades: 0
+- Win Rate: 0.00%
+- Total PnL: $0.00
+- Max Drawdown: $0.00
+- Risk-Adjusted Return: 0.00
+2024-12-28 00:22:28,514 - bot - INFO - Enhanced trading bot stopped successfully
+2024-12-28 00:22:44,347 - bot - INFO - Initializing enhanced trading bot...
+2024-12-28 00:22:45,056 - bot - INFO - Enhanced trading bot initialized successfully
+2024-12-28 00:22:45,064 - bot - INFO - ==================================================
+2024-12-28 00:22:45,071 - bot - INFO - Starting Enhanced Binance Trading Bot
+2024-12-28 00:22:45,073 - bot - INFO - Mode: TESTNET (Paper Trading)
+2024-12-28 00:22:45,075 - bot - INFO - Trading pairs: AMBUSDT, ARUSDT, AIUSDT
+2024-12-28 00:22:45,078 - bot - INFO - ==================================================
+2024-12-28 00:22:45,082 - bot - INFO - Starting enhanced trading bot...
+2024-12-28 00:22:45,097 - bot - INFO - Trade executor scheduler started
+2024-12-28 00:22:45,736 - bot - INFO - Initial market regime for AMBUSDT: volatile
+2024-12-28 00:22:46,575 - bot - INFO - Started streaming for AMBUSDT
+2024-12-28 00:22:47,417 - bot - INFO - Initial market regime for ARUSDT: volatile
+2024-12-28 00:22:48,145 - bot - INFO - Started streaming for ARUSDT
+2024-12-28 00:22:48,431 - bot - INFO - Initial market regime for AIUSDT: volatile
+2024-12-28 00:22:48,835 - bot - INFO - Started streaming for AIUSDT
+2024-12-28 00:22:48,836 - bot - INFO - Enhanced trading bot started successfully
+2024-12-28 00:23:48,838 - bot - INFO - Performance Summary:
+- Total Trades: 0
+- Win Rate: 0.00%
+- Total PnL: $0.00
+- Max Drawdown: $0.00
+- Risk-Adjusted Return: 0.00
+2024-12-28 00:24:25,810 - bot - INFO - Shutdown signal received, stopping bot...
+2024-12-28 00:24:25,814 - bot - INFO - Stopping enhanced trading bot...
+2024-12-28 00:24:25,824 - bot - INFO - Stopped streaming for AMBUSDT
+2024-12-28 00:24:25,839 - bot - INFO - Stopped streaming for ARUSDT
+2024-12-28 00:24:26,123 - bot - INFO - Stopped streaming for AIUSDT
+2024-12-28 00:24:26,134 - bot - INFO - Trade executor scheduler stopped
+2024-12-28 00:24:26,138 - bot - INFO - Performance Summary:
+- Total Trades: 0
+- Win Rate: 0.00%
+- Total PnL: $0.00
+- Max Drawdown: $0.00
+- Risk-Adjusted Return: 0.00
+2024-12-28 00:24:26,149 - bot - INFO - Enhanced trading bot stopped successfully

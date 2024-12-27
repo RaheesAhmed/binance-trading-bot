@@ -77,3 +77,57 @@ Function: __init__
 Path: D:\binance-trading-bot\trade_executor.py:60
 Function: __init__
 ---
+2024-12-28 00:20:21,123 - trading - INFO - Risk Manager initialized with:
+- Max daily loss: 2.0%
+- Max position size: 5.0%
+- Risk per trade: 1.0%
+2024-12-28 00:20:21,123 - trading - INFO - Risk Manager initialized with:
+- Max daily loss: 2.0%
+- Max position size: 5.0%
+- Risk per trade: 1.0%
+2024-12-28 00:20:21,132 - trading - INFO - Scheduler jobs configured successfully
+2024-12-28 00:20:21,132 - trading - INFO - Scheduler jobs configured successfully
+2024-12-28 00:20:21,381 - trading - INFO - Initial USDT balance: 11434.150082
+2024-12-28 00:20:21,381 - trading - INFO - Initial USDT balance: 11434.150082
+2024-12-28 00:20:21,381 - trading - WARNING - ==================================================
+2024-12-28 00:20:21,381 - trading - WARNING - ==================================================
+2024-12-28 00:20:21,389 - trading - WARNING - TESTNET MODE - Paper Trading Only
+2024-12-28 00:20:21,389 - trading - WARNING - TESTNET MODE - Paper Trading Only
+2024-12-28 00:20:21,393 - trading - WARNING - ==================================================
+2024-12-28 00:20:21,393 - trading - WARNING - ==================================================
+2024-12-28 00:21:46,630 - trading - INFO - Risk Manager initialized with:
+- Max daily loss: 2.0%
+- Max position size: 5.0%
+- Risk per trade: 1.0%
+2024-12-28 00:21:46,630 - trading - INFO - Risk Manager initialized with:
+- Max daily loss: 2.0%
+- Max position size: 5.0%
+- Risk per trade: 1.0%
+2024-12-28 00:21:46,644 - trading - INFO - Scheduler jobs configured successfully
+2024-12-28 00:21:46,644 - trading - INFO - Scheduler jobs configured successfully
+2024-12-28 00:21:47,232 - trading - INFO - Initial USDT balance: 11434.150082
+2024-12-28 00:21:47,232 - trading - INFO - Initial USDT balance: 11434.150082
+2024-12-28 00:21:47,232 - trading - WARNING - ==================================================
+2024-12-28 00:21:47,232 - trading - WARNING - ==================================================
+2024-12-28 00:21:47,248 - trading - WARNING - TESTNET MODE - Paper Trading Only
+2024-12-28 00:21:47,248 - trading - WARNING - TESTNET MODE - Paper Trading Only
+2024-12-28 00:21:47,253 - trading - WARNING - ==================================================
+2024-12-28 00:21:47,253 - trading - WARNING - ==================================================
+2024-12-28 00:22:44,347 - trading - INFO - Risk Manager initialized with:
+- Max daily loss: 2.0%
+- Max position size: 5.0%
+- Risk per trade: 1.0%
+2024-12-28 00:22:44,347 - trading - INFO - Risk Manager initialized with:
+- Max daily loss: 2.0%
+- Max position size: 5.0%
+- Risk per trade: 1.0%
+2024-12-28 00:22:44,359 - trading - INFO - Scheduler jobs configured successfully
+2024-12-28 00:22:44,359 - trading - INFO - Scheduler jobs configured successfully
+2024-12-28 00:22:45,032 - trading - INFO - Initial USDT balance: 11434.150082
+2024-12-28 00:22:45,032 - trading - INFO - Initial USDT balance: 11434.150082
+2024-12-28 00:22:45,041 - trading - WARNING - ==================================================
+2024-12-28 00:22:45,041 - trading - WARNING - ==================================================
+2024-12-28 00:22:45,048 - trading - WARNING - TESTNET MODE - Paper Trading Only
+2024-12-28 00:22:45,048 - trading - WARNING - TESTNET MODE - Paper Trading Only
+2024-12-28 00:22:45,050 - trading - WARNING - ==================================================
+2024-12-28 00:22:45,050 - trading - WARNING - ==================================================

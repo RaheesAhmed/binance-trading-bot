@@ -7,7 +7,7 @@ from logger_setup import get_logger
 import json
 import os
 from typing import Optional, Dict, Callable
-import websocket
+from websocket import WebSocketApp
 import threading
 from datetime import datetime
 import queue
@@ -92,9 +92,31 @@ class PricePredictor:
             def on_message(ws, message):
                 try:
                     data = json.loads(message)
+                    
+                    # Handle subscription response
+                    if 'result' in data:
+                        prediction_logger.info(f"Subscription response: {data}")
+                        return
+                        
+                    # Validate message structure
+                    if not all(key in data for key in ['e', 's']):
+                        prediction_logger.warning(f"Received incomplete message: {data}")
+                        return
+                        
+                    # Handle kline messages
                     if data['e'] == 'kline':
+                        if 'k' not in data:
+                            prediction_logger.warning(f"Kline data missing in message: {data}")
+                            return
+                            
                         symbol = data['s']
                         k = data['k']
+                        
+                        # Validate kline data
+                        required_fields = ['t', 'o', 'h', 'l', 'c', 'v', 'x']
+                        if not all(field in k for field in required_fields):
+                            prediction_logger.warning(f"Incomplete kline data for {symbol}: {k}")
+                            return
                         
                         # Only process completed candles
                         if k['x']:  # Candle closed
@@ -108,18 +130,25 @@ class PricePredictor:
                             }
                             
                             # Update candle history
-                            self.candle_history[symbol].append(candle)
-                            
-                            # Make new prediction
-                            prediction = self._predict_realtime(symbol)
-                            
-                            # Call callbacks
-                            if symbol in self.callbacks:
-                                for callback in self.callbacks[symbol]:
-                                    callback(prediction)
-                            
+                            if symbol in self.candle_history:
+                                self.candle_history[symbol].append(candle)
+                                
+                                # Make new prediction
+                                prediction = self._predict_realtime(symbol)
+                                
+                                # Call callbacks
+                                if symbol in self.callbacks:
+                                    for callback in self.callbacks[symbol]:
+                                        callback(prediction)
+                            else:
+                                prediction_logger.warning(f"Received data for untracked symbol: {symbol}")
+                    else:
+                        prediction_logger.debug(f"Ignored non-kline message: {data['e']}")
+                        
+                except json.JSONDecodeError as e:
+                    prediction_logger.error(f"Failed to decode WebSocket message: {e}")
                 except Exception as e:
-                    prediction_logger.error(f"Error processing WebSocket message: {e}")
+                    prediction_logger.error(f"Error processing WebSocket message: {str(e)}", exc_info=True)
             
             def on_error(ws, error):
                 prediction_logger.error(f"WebSocket error: {error}")
@@ -144,7 +173,7 @@ class PricePredictor:
                 ws.send(json.dumps(subscribe_message))
             
             # Initialize WebSocket
-            self.ws = websocket.WebSocketApp(
+            self.ws = WebSocketApp(
                 base_url,
                 on_message=on_message,
                 on_error=on_error,
@@ -155,7 +184,7 @@ class PricePredictor:
             # Start WebSocket in a separate thread
             self.ws_thread = threading.Thread(
                 target=self.ws.run_forever,
-                kwargs={"ping_interval": 60}
+                kwargs={"ping_interval": 60, "ping_timeout": 30}
             )
             self.ws_thread.daemon = True
             self.ws_thread.start()

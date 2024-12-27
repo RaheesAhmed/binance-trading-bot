@@ -212,3 +212,203 @@
 2024-12-28 00:04:34,438 - INFO - Scheduler has been shut down
 2024-12-28 00:04:34,438 - INFO - Trade executor scheduler stopped
 2024-12-28 00:04:34,441 - INFO - Trading bot stopped successfully
+2024-12-28 00:20:16,942 - INFO - USE_TESTNET value from env: true
+2024-12-28 00:20:16,942 - INFO - Testnet mode: True
+2024-12-28 00:20:16,942 - INFO - API Key found: Yes
+2024-12-28 00:20:16,942 - INFO - API Secret found: Yes
+2024-12-28 00:20:18,787 - INFO - Initialized Binance Testnet client successfully
+2024-12-28 00:20:19,050 - INFO - Successfully connected to Binance Testnet
+2024-12-28 00:20:21,031 - INFO - Successfully loaded model, scaler, and feature names
+2024-12-28 00:20:21,122 - INFO - Initializing enhanced trading bot...
+2024-12-28 00:20:21,123 - INFO - Risk Manager initialized with:
+- Max daily loss: 2.0%
+- Max position size: 5.0%
+- Risk per trade: 1.0%
+2024-12-28 00:20:21,125 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2024-12-28 00:20:21,130 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2024-12-28 00:20:21,130 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2024-12-28 00:20:21,132 - INFO - Scheduler jobs configured successfully
+2024-12-28 00:20:21,381 - INFO - Initial USDT balance: 11434.150082
+2024-12-28 00:20:21,381 - WARNING - ==================================================
+2024-12-28 00:20:21,389 - WARNING - TESTNET MODE - Paper Trading Only
+2024-12-28 00:20:21,393 - WARNING - ==================================================
+2024-12-28 00:20:21,398 - INFO - Enhanced trading bot initialized successfully
+2024-12-28 00:20:21,402 - INFO - ==================================================
+2024-12-28 00:20:21,402 - INFO - Starting Enhanced Binance Trading Bot
+2024-12-28 00:20:21,408 - INFO - Mode: TESTNET (Paper Trading)
+2024-12-28 00:20:21,410 - INFO - Trading pairs: AMBUSDT, ARUSDT, AIUSDT
+2024-12-28 00:20:21,414 - INFO - ==================================================
+2024-12-28 00:20:21,415 - INFO - Starting enhanced trading bot...
+2024-12-28 00:20:21,421 - INFO - Added job "Hourly Trading Execution" to job store "default"
+2024-12-28 00:20:21,427 - INFO - Added job "Position Management" to job store "default"
+2024-12-28 00:20:21,427 - INFO - Added job "Daily Counter Reset" to job store "default"
+2024-12-28 00:20:21,427 - INFO - Scheduler started
+2024-12-28 00:20:21,437 - INFO - Trade executor scheduler started
+2024-12-28 00:20:21,822 - INFO - Initial market regime for AMBUSDT: volatile
+2024-12-28 00:20:22,159 - ERROR - Error starting WebSocket: module 'websocket' has no attribute 'WebSocketApp'
+2024-12-28 00:20:22,165 - INFO - Started streaming for AMBUSDT
+2024-12-28 00:20:22,167 - INFO - Started streaming for AMBUSDT
+2024-12-28 00:20:22,848 - INFO - Initial market regime for ARUSDT: volatile
+2024-12-28 00:20:23,149 - ERROR - Error starting WebSocket: module 'websocket' has no attribute 'WebSocketApp'
+2024-12-28 00:20:23,163 - INFO - Started streaming for ARUSDT
+2024-12-28 00:20:23,166 - INFO - Started streaming for ARUSDT
+2024-12-28 00:20:23,448 - INFO - Initial market regime for AIUSDT: volatile
+2024-12-28 00:20:23,763 - ERROR - Error starting WebSocket: module 'websocket' has no attribute 'WebSocketApp'
+2024-12-28 00:20:23,767 - INFO - Started streaming for AIUSDT
+2024-12-28 00:20:23,770 - INFO - Started streaming for AIUSDT
+2024-12-28 00:20:23,771 - INFO - Enhanced trading bot started successfully
+2024-12-28 00:21:02,646 - INFO - Shutdown signal received, stopping bot...
+2024-12-28 00:21:02,646 - INFO - Stopping enhanced trading bot...
+2024-12-28 00:21:02,649 - INFO - Stopped streaming for AMBUSDT
+2024-12-28 00:21:02,649 - INFO - Stopped streaming for AMBUSDT
+2024-12-28 00:21:02,649 - INFO - Stopped streaming for ARUSDT
+2024-12-28 00:21:02,651 - INFO - Stopped streaming for ARUSDT
+2024-12-28 00:21:02,651 - INFO - Stopped all streams
+2024-12-28 00:21:02,654 - INFO - Stopped streaming for AIUSDT
+2024-12-28 00:21:02,656 - INFO - Stopped streaming for AIUSDT
+2024-12-28 00:21:02,656 - INFO - Scheduler has been shut down
+2024-12-28 00:21:02,656 - INFO - Trade executor scheduler stopped
+2024-12-28 00:21:02,657 - INFO - Performance Summary:
+- Total Trades: 0
+- Win Rate: 0.00%
+- Total PnL: $0.00
+- Max Drawdown: $0.00
+- Risk-Adjusted Return: 0.00
+2024-12-28 00:21:02,658 - INFO - Enhanced trading bot stopped successfully
+2024-12-28 00:21:43,512 - INFO - USE_TESTNET value from env: true
+2024-12-28 00:21:43,513 - INFO - Testnet mode: True
+2024-12-28 00:21:43,513 - INFO - API Key found: Yes
+2024-12-28 00:21:43,513 - INFO - API Secret found: Yes
+2024-12-28 00:21:44,292 - INFO - Initialized Binance Testnet client successfully
+2024-12-28 00:21:44,859 - INFO - Successfully connected to Binance Testnet
+2024-12-28 00:21:46,550 - INFO - Successfully loaded model, scaler, and feature names
+2024-12-28 00:21:46,630 - INFO - Initializing enhanced trading bot...
+2024-12-28 00:21:46,630 - INFO - Risk Manager initialized with:
+- Max daily loss: 2.0%
+- Max position size: 5.0%
+- Risk per trade: 1.0%
+2024-12-28 00:21:46,640 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2024-12-28 00:21:46,640 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2024-12-28 00:21:46,644 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2024-12-28 00:21:46,644 - INFO - Scheduler jobs configured successfully
+2024-12-28 00:21:47,232 - INFO - Initial USDT balance: 11434.150082
+2024-12-28 00:21:47,232 - WARNING - ==================================================
+2024-12-28 00:21:47,248 - WARNING - TESTNET MODE - Paper Trading Only
+2024-12-28 00:21:47,253 - WARNING - ==================================================
+2024-12-28 00:21:47,256 - INFO - Enhanced trading bot initialized successfully
+2024-12-28 00:21:47,258 - INFO - ==================================================
+2024-12-28 00:21:47,264 - INFO - Starting Enhanced Binance Trading Bot
+2024-12-28 00:21:47,264 - INFO - Mode: TESTNET (Paper Trading)
+2024-12-28 00:21:47,266 - INFO - Trading pairs: AMBUSDT, ARUSDT, AIUSDT
+2024-12-28 00:21:47,269 - INFO - ==================================================
+2024-12-28 00:21:47,271 - INFO - Starting enhanced trading bot...
+2024-12-28 00:21:47,275 - INFO - Added job "Hourly Trading Execution" to job store "default"
+2024-12-28 00:21:47,277 - INFO - Added job "Position Management" to job store "default"
+2024-12-28 00:21:47,277 - INFO - Added job "Daily Counter Reset" to job store "default"
+2024-12-28 00:21:47,279 - INFO - Scheduler started
+2024-12-28 00:21:47,280 - INFO - Trade executor scheduler started
+2024-12-28 00:21:47,638 - INFO - Initial market regime for AMBUSDT: volatile
+2024-12-28 00:21:48,004 - INFO - Started streaming for AMBUSDT
+2024-12-28 00:21:48,021 - INFO - Started streaming for AMBUSDT
+2024-12-28 00:21:48,632 - INFO - Initial market regime for ARUSDT: volatile
+2024-12-28 00:21:48,992 - INFO - Started streaming for ARUSDT
+2024-12-28 00:21:49,001 - INFO - Started streaming for ARUSDT
+2024-12-28 00:21:49,019 - INFO - Websocket connected
+2024-12-28 00:21:49,022 - INFO - WebSocket connection opened
+2024-12-28 00:21:49,267 - INFO - Initial market regime for AIUSDT: volatile
+2024-12-28 00:21:49,306 - ERROR - Error processing WebSocket message: 'e'
+2024-12-28 00:21:49,579 - INFO - Started streaming for AIUSDT
+2024-12-28 00:21:49,579 - INFO - Started streaming for AIUSDT
+2024-12-28 00:21:49,579 - INFO - Enhanced trading bot started successfully
+2024-12-28 00:21:50,060 - INFO - Websocket connected
+2024-12-28 00:21:50,060 - INFO - WebSocket connection opened
+2024-12-28 00:21:50,360 - ERROR - Error processing WebSocket message: 'e'
+2024-12-28 00:22:28,188 - INFO - Shutdown signal received, stopping bot...
+2024-12-28 00:22:28,188 - INFO - Stopping enhanced trading bot...
+2024-12-28 00:22:28,188 - INFO - Stopped streaming for AMBUSDT
+2024-12-28 00:22:28,188 - INFO - Stopped streaming for AMBUSDT
+2024-12-28 00:22:28,188 - INFO - Stopped streaming for ARUSDT
+2024-12-28 00:22:28,188 - INFO - Stopped streaming for ARUSDT
+2024-12-28 00:22:28,505 - WARNING - WebSocket connection closed
+2024-12-28 00:22:28,505 - INFO - Stopped all streams
+2024-12-28 00:22:28,508 - INFO - Stopped streaming for AIUSDT
+2024-12-28 00:22:28,510 - INFO - Stopped streaming for AIUSDT
+2024-12-28 00:22:28,510 - INFO - Scheduler has been shut down
+2024-12-28 00:22:28,510 - INFO - Trade executor scheduler stopped
+2024-12-28 00:22:28,512 - INFO - Performance Summary:
+- Total Trades: 0
+- Win Rate: 0.00%
+- Total PnL: $0.00
+- Max Drawdown: $0.00
+- Risk-Adjusted Return: 0.00
+2024-12-28 00:22:28,514 - INFO - Enhanced trading bot stopped successfully
+2024-12-28 00:22:41,010 - INFO - USE_TESTNET value from env: true
+2024-12-28 00:22:41,010 - INFO - Testnet mode: True
+2024-12-28 00:22:41,010 - INFO - API Key found: Yes
+2024-12-28 00:22:41,010 - INFO - API Secret found: Yes
+2024-12-28 00:22:41,830 - INFO - Initialized Binance Testnet client successfully
+2024-12-28 00:22:42,486 - INFO - Successfully connected to Binance Testnet
+2024-12-28 00:22:44,274 - INFO - Successfully loaded model, scaler, and feature names
+2024-12-28 00:22:44,347 - INFO - Initializing enhanced trading bot...
+2024-12-28 00:22:44,347 - INFO - Risk Manager initialized with:
+- Max daily loss: 2.0%
+- Max position size: 5.0%
+- Risk per trade: 1.0%
+2024-12-28 00:22:44,357 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2024-12-28 00:22:44,357 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2024-12-28 00:22:44,357 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2024-12-28 00:22:44,359 - INFO - Scheduler jobs configured successfully
+2024-12-28 00:22:45,032 - INFO - Initial USDT balance: 11434.150082
+2024-12-28 00:22:45,041 - WARNING - ==================================================
+2024-12-28 00:22:45,048 - WARNING - TESTNET MODE - Paper Trading Only
+2024-12-28 00:22:45,050 - WARNING - ==================================================
+2024-12-28 00:22:45,056 - INFO - Enhanced trading bot initialized successfully
+2024-12-28 00:22:45,064 - INFO - ==================================================
+2024-12-28 00:22:45,071 - INFO - Starting Enhanced Binance Trading Bot
+2024-12-28 00:22:45,073 - INFO - Mode: TESTNET (Paper Trading)
+2024-12-28 00:22:45,075 - INFO - Trading pairs: AMBUSDT, ARUSDT, AIUSDT
+2024-12-28 00:22:45,078 - INFO - ==================================================
+2024-12-28 00:22:45,082 - INFO - Starting enhanced trading bot...
+2024-12-28 00:22:45,089 - INFO - Added job "Hourly Trading Execution" to job store "default"
+2024-12-28 00:22:45,089 - INFO - Added job "Position Management" to job store "default"
+2024-12-28 00:22:45,089 - INFO - Added job "Daily Counter Reset" to job store "default"
+2024-12-28 00:22:45,089 - INFO - Scheduler started
+2024-12-28 00:22:45,097 - INFO - Trade executor scheduler started
+2024-12-28 00:22:45,736 - INFO - Initial market regime for AMBUSDT: volatile
+2024-12-28 00:22:46,564 - INFO - Started streaming for AMBUSDT
+2024-12-28 00:22:46,575 - INFO - Started streaming for AMBUSDT
+2024-12-28 00:22:47,417 - INFO - Initial market regime for ARUSDT: volatile
+2024-12-28 00:22:47,640 - INFO - Websocket connected
+2024-12-28 00:22:47,645 - INFO - WebSocket connection opened
+2024-12-28 00:22:47,912 - INFO - Subscription response: {'result': None, 'id': 1}
+2024-12-28 00:22:48,145 - INFO - Started streaming for ARUSDT
+2024-12-28 00:22:48,145 - INFO - Started streaming for ARUSDT
+2024-12-28 00:22:48,431 - INFO - Initial market regime for AIUSDT: volatile
+2024-12-28 00:22:48,831 - INFO - Started streaming for AIUSDT
+2024-12-28 00:22:48,835 - INFO - Started streaming for AIUSDT
+2024-12-28 00:22:48,836 - INFO - Enhanced trading bot started successfully
+2024-12-28 00:23:48,838 - INFO - Performance Summary:
+- Total Trades: 0
+- Win Rate: 0.00%
+- Total PnL: $0.00
+- Max Drawdown: $0.00
+- Risk-Adjusted Return: 0.00
+2024-12-28 00:24:25,810 - INFO - Shutdown signal received, stopping bot...
+2024-12-28 00:24:25,814 - INFO - Stopping enhanced trading bot...
+2024-12-28 00:24:25,818 - INFO - Stopped streaming for AMBUSDT
+2024-12-28 00:24:25,824 - INFO - Stopped streaming for AMBUSDT
+2024-12-28 00:24:25,831 - INFO - Stopped streaming for ARUSDT
+2024-12-28 00:24:25,839 - INFO - Stopped streaming for ARUSDT
+2024-12-28 00:24:26,101 - WARNING - WebSocket connection closed
+2024-12-28 00:24:26,105 - INFO - Stopped all streams
+2024-12-28 00:24:26,115 - INFO - Stopped streaming for AIUSDT
+2024-12-28 00:24:26,123 - INFO - Stopped streaming for AIUSDT
+2024-12-28 00:24:26,131 - INFO - Scheduler has been shut down
+2024-12-28 00:24:26,134 - INFO - Trade executor scheduler stopped
+2024-12-28 00:24:26,138 - INFO - Performance Summary:
+- Total Trades: 0
+- Win Rate: 0.00%
+- Total PnL: $0.00
+- Max Drawdown: $0.00
+- Risk-Adjusted Return: 0.00
+2024-12-28 00:24:26,149 - INFO - Enhanced trading bot stopped successfully
