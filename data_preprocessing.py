@@ -3,11 +3,16 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 import ta
+from ta.trend import MACD, SMAIndicator, IchimokuIndicator
+from ta.momentum import RSIIndicator, StochasticOscillator
+from ta.volatility import BollingerBands, AverageTrueRange
+from ta.volume import OnBalanceVolumeIndicator, AccDistIndexIndicator
+from ta.others import DailyReturnIndicator
 
 def load_historical_data():
     """Load data from historical_data.json"""
     try:
-        with open('historical_data.json', 'r') as f:
+        with open('data/historical_data.json', 'r') as f:
             return json.load(f)
     except FileNotFoundError:
         print("Error: historical_data.json not found")
@@ -16,67 +21,131 @@ def load_historical_data():
         print("Error: Invalid JSON format in historical_data.json")
         return None
 
-def convert_to_dataframe(symbol_data):
-    """Convert JSON data to pandas DataFrame"""
-    df = pd.DataFrame(symbol_data['data'])
+def convert_to_dataframe(symbol_data, interval):
+    """Convert JSON data to pandas DataFrame for a specific interval"""
+    if interval not in symbol_data:
+        return None
+        
+    df = pd.DataFrame(symbol_data[interval]['data'])
+    
+    # First check how many columns we have
+    num_columns = len(df.columns)
+    
+    if num_columns == 12:
+        # Full kline data format
+        df.columns = ['time', 'open', 'high', 'low', 'close', 'volume', 'close_time', 
+                     'quote_volume', 'trades', 'taker_buy_base', 'taker_buy_quote', 'ignore']
+    elif num_columns == 6:
+        # Simplified format
+        df.columns = ['time', 'open', 'high', 'low', 'close', 'volume']
+    else:
+        print(f"Unexpected number of columns: {num_columns}")
+        return None
+    
+    # Convert types for the columns we know we need
+    numeric_columns = ['open', 'high', 'low', 'close', 'volume']
+    if 'quote_volume' in df.columns:
+        numeric_columns.extend(['quote_volume', 'taker_buy_base', 'taker_buy_quote'])
+    
+    df[numeric_columns] = df[numeric_columns].astype(float)
     
     # Convert timestamp to datetime
-    df['timestamp'] = pd.to_datetime(df['time'], unit='ms')
-    
-    # Set timestamp as index
+    df['timestamp'] = pd.to_datetime(df['time'].astype(float), unit='ms')
     df.set_index('timestamp', inplace=True)
     
-    # Drop original time column
-    df.drop('time', axis=1, inplace=True)
+    # Drop unnecessary columns
+    columns_to_drop = ['time']
+    if 'close_time' in df.columns:
+        columns_to_drop.extend(['close_time', 'ignore'])
+    df.drop(columns_to_drop, axis=1, inplace=True)
     
     return df
 
 def add_technical_indicators(df):
-    """Add technical analysis indicators to DataFrame"""
+    """Add comprehensive technical analysis indicators to DataFrame"""
     
-    # Initialize indicator objects
-    rsi = ta.momentum.RSIIndicator(df['close'], window=14)
-    macd = ta.trend.MACD(df['close'])
-    bb = ta.volatility.BollingerBands(df['close'])
+    # Price action features
+    df['price_range'] = (df['high'] - df['low']) / df['close']
+    df['body_size'] = abs(df['close'] - df['open']) / df['close']
+    df['upper_shadow'] = (df['high'] - df[['open', 'close']].max(axis=1)) / df['close']
+    df['lower_shadow'] = (df[['open', 'close']].min(axis=1) - df['low']) / df['close']
     
-    # Add RSI
-    df['rsi'] = rsi.rsi()
-    
-    # Add MACD
+    # Trend Indicators
+    macd = MACD(df['close'])
     df['macd'] = macd.macd()
     df['macd_signal'] = macd.macd_signal()
     df['macd_diff'] = macd.macd_diff()
     
-    # Add Bollinger Bands
+    # Multiple timeframe SMAs
+    for period in [5, 8, 13, 21, 34, 55, 89]:
+        df[f'sma_{period}'] = SMAIndicator(df['close'], window=period).sma_indicator()
+    
+    # Ichimoku Cloud
+    ichimoku = IchimokuIndicator(high=df['high'], low=df['low'])
+    df['ichimoku_a'] = ichimoku.ichimoku_a()
+    df['ichimoku_b'] = ichimoku.ichimoku_b()
+    df['ichimoku_base'] = ichimoku.ichimoku_base_line()
+    df['ichimoku_conv'] = ichimoku.ichimoku_conversion_line()
+    
+    # Momentum Indicators
+    rsi = RSIIndicator(df['close'])
+    df['rsi'] = rsi.rsi()
+    
+    stoch = StochasticOscillator(df['high'], df['low'], df['close'])
+    df['stoch_k'] = stoch.stoch()
+    df['stoch_d'] = stoch.stoch_signal()
+    
+    # Volatility Indicators
+    bb = BollingerBands(df['close'])
     df['bb_high'] = bb.bollinger_hband()
     df['bb_low'] = bb.bollinger_lband()
     df['bb_mid'] = bb.bollinger_mavg()
+    df['bb_width'] = (df['bb_high'] - df['bb_low']) / df['bb_mid']
     
-    # Add Simple Moving Averages
-    df['sma_20'] = ta.trend.sma_indicator(df['close'], window=20)
-    df['sma_50'] = ta.trend.sma_indicator(df['close'], window=50)
-    df['sma_200'] = ta.trend.sma_indicator(df['close'], window=200)
+    atr = AverageTrueRange(df['high'], df['low'], df['close'])
+    df['atr'] = atr.average_true_range()
+    df['atr_pct'] = df['atr'] / df['close']
     
-    # Add Average True Range (ATR)
-    df['atr'] = ta.volatility.AverageTrueRange(df['high'], df['low'], df['close']).average_true_range()
+    # Volume Indicators
+    obv = OnBalanceVolumeIndicator(df['close'], df['volume'])
+    df['obv'] = obv.on_balance_volume()
     
-    # Add price momentum
-    df['price_momentum'] = df['close'].pct_change()
+    adi = AccDistIndexIndicator(df['high'], df['low'], df['close'], df['volume'])
+    df['adi'] = adi.acc_dist_index()
     
-    # Add volume indicators
-    df['volume_sma'] = ta.trend.sma_indicator(df['volume'], window=20)
-    df['volume_momentum'] = df['volume'].pct_change()
+    df['volume_sma'] = df['volume'].rolling(window=20).mean()
+    df['volume_std'] = df['volume'].rolling(window=20).std()
+    df['volume_zscore'] = (df['volume'] - df['volume_sma']) / df['volume_std']
+    
+    # Returns and Momentum
+    returns = DailyReturnIndicator(df['close'])
+    df['returns'] = returns.daily_return()
+    
+    # Momentum features with different periods
+    for period in [5, 10, 15, 20]:
+        df[f'momentum_{period}'] = df['close'].pct_change(periods=period)
+        df[f'volume_momentum_{period}'] = df['volume'].pct_change(periods=period)
     
     return df
 
 def clean_data(df):
     """Clean the DataFrame by handling missing values and outliers"""
     
-    # Forward fill missing values using newer method
+    # Forward fill missing values
     df = df.ffill()
     
-    # Backward fill any remaining missing values using newer method
+    # Backward fill any remaining missing values
     df = df.bfill()
+    
+    # Handle outliers using IQR method for volume and returns
+    for col in ['volume', 'returns']:
+        if col in df.columns:
+            Q1 = df[col].quantile(0.25)
+            Q3 = df[col].quantile(0.75)
+            IQR = Q3 - Q1
+            lower_bound = Q1 - 3 * IQR
+            upper_bound = Q3 + 3 * IQR
+            df[col] = df[col].clip(lower=lower_bound, upper=upper_bound)
     
     # Remove rows with infinite values
     df.replace([np.inf, -np.inf], np.nan, inplace=True)
@@ -86,43 +155,56 @@ def clean_data(df):
 
 def process_all_data():
     """Process all symbol data and save to processed_data.json"""
-    # Load historical data
     historical_data = load_historical_data()
     if not historical_data:
         return
     
     processed_data = {}
     
-    for symbol, data in historical_data.items():
+    for symbol, timeframes_data in historical_data.items():
         print(f"Processing {symbol}...")
+        symbol_processed = {}
         
-        # Convert to DataFrame
-        df = convert_to_dataframe(data)
+        for interval in timeframes_data.keys():
+            # Convert to DataFrame
+            df = convert_to_dataframe(timeframes_data, interval)
+            if df is None:
+                continue
+                
+            # Add technical indicators
+            df = add_technical_indicators(df)
+            
+            # Clean data
+            df = clean_data(df)
+            
+            # Convert DataFrame back to dictionary
+            df_dict = df.reset_index().to_dict(orient='records')
+            
+            # Convert datetime objects to ISO format strings
+            for record in df_dict:
+                record['timestamp'] = record['timestamp'].isoformat()
+            
+            symbol_processed[interval] = {
+                'interval': interval,
+                'last_updated': datetime.now().isoformat(),
+                'data': df_dict
+            }
         
-        # Add technical indicators
-        df = add_technical_indicators(df)
-        
-        # Clean data
-        df = clean_data(df)
-        
-        # Convert DataFrame back to dictionary with proper datetime handling
-        df_dict = df.reset_index().to_dict(orient='records')
-        
-        # Convert datetime objects to ISO format strings
-        for record in df_dict:
-            record['timestamp'] = record['timestamp'].isoformat()
-        
-        processed_data[symbol] = {
-            'interval': data['interval'],
-            'last_updated': datetime.now().isoformat(),
-            'data': df_dict
-        }
+        processed_data[symbol] = symbol_processed
     
-    # Save processed data to JSON
+    # Save processed data
     try:
-        with open('processed_data.json', 'w') as f:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f'data/processed_data_{timestamp}.json'
+        
+        with open(filename, 'w') as f:
             json.dump(processed_data, f, indent=2)
-        print("\nProcessed data successfully saved to processed_data.json")
+            
+        # Update main processed data file
+        with open('data/processed_data.json', 'w') as f:
+            json.dump(processed_data, f, indent=2)
+            
+        print(f"\nProcessed data successfully saved to {filename} and processed_data.json")
     except Exception as e:
         print(f"Error saving processed data: {e}")
 

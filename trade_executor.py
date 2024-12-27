@@ -23,10 +23,10 @@ binance_logger = get_logger('binance')
 class RiskManager:
     def __init__(self,
                  initial_capital: float,
-                 max_daily_loss_pct: float = 0.02,    # 2% max daily loss
-                 max_position_size_pct: float = 0.05,  # 5% max position size
-                 risk_per_trade_pct: float = 0.01,     # 1% risk per trade
-                 max_correlated_positions: int = 2,     # Max similar positions
+                 max_daily_loss_pct: float = 0.01,    # Reduced to 1% max daily loss
+                 max_position_size_pct: float = 0.02,  # Reduced to 2% max position size
+                 risk_per_trade_pct: float = 0.005,    # Reduced to 0.5% risk per trade
+                 max_correlated_positions: int = 1,     # Reduced to 1 similar position
                  volatility_lookback: int = 20):        # Days for volatility calc
         
         self.initial_capital = initial_capital
@@ -57,7 +57,7 @@ class RiskManager:
             # Get historical volatility
             volatility = self._calculate_volatility(symbol)
             
-            # Calculate risk amount (1% of current balance)
+            # Calculate risk amount (0.5% of current balance)
             risk_amount = account_balance * self.risk_per_trade_pct
             
             # Calculate position size based on stop loss distance
@@ -65,18 +65,23 @@ class RiskManager:
             base_position_size = risk_amount / stop_loss_distance
             
             # Adjust for volatility (reduce size for high volatility)
-            volatility_factor = 1.0 / (1.0 + volatility)
+            volatility_factor = 1.0 / (1.0 + volatility * 2)  # More aggressive volatility reduction
             position_size = base_position_size * volatility_factor
             
             # Apply maximum position size limit
             max_position = account_balance * self.max_position_size_pct
             position_size = min(position_size, max_position)
             
+            # Additional safety: reduce position size if daily loss is approaching limit
+            daily_loss_factor = max(0, 1 - abs(self.daily_pnl) / (self.initial_capital * self.max_daily_loss_pct))
+            position_size *= daily_loss_factor
+            
             trading_logger.info(
                 f"Position size calculation for {symbol}:"
                 f"\n- Risk amount: ${risk_amount:.2f}"
                 f"\n- Stop loss distance: {stop_loss_distance:.2%}"
                 f"\n- Volatility factor: {volatility_factor:.2f}"
+                f"\n- Daily loss factor: {daily_loss_factor:.2f}"
                 f"\n- Final position size: ${position_size:.2f}"
             )
             
@@ -187,10 +192,10 @@ class TradeExecutor:
         # Initialize risk manager
         self.risk_manager = RiskManager(
             initial_capital=initial_capital,
-            max_daily_loss_pct=0.02,     # 2% max daily loss
-            max_position_size_pct=0.05,   # 5% max position size
-            risk_per_trade_pct=0.01,      # 1% risk per trade
-            max_correlated_positions=2     # Max 2 similar positions
+            max_daily_loss_pct=0.01,     # Reduced to 1% max daily loss
+            max_position_size_pct=0.02,   # Reduced to 2% max position size
+            risk_per_trade_pct=0.005,    # Reduced to 0.5% risk per trade
+            max_correlated_positions=1     # Reduced to 1 similar position
         )
         
         # Initialize tracking

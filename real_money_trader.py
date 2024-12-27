@@ -519,10 +519,12 @@ def main():
             backtester = Backtester(
                 symbols=symbols,
                 initial_capital=3.0,     # Start with $3 USDT
-                position_size_pct=0.3,   # Use 30% of capital per trade
-                stop_loss_pct=0.015,     # 1.5% stop loss
-                take_profit_pct=0.045,   # 4.5% take profit
-                days=30                  # Backtest on last 30 days
+                position_size_pct=0.15,  # Use 15% of capital per trade
+                stop_loss_pct=0.01,     # 1% stop loss
+                take_profit_pct=0.03,   # 3% take profit
+                min_confidence=0.65,    # Minimum 65% confidence
+                max_positions=1,        # Maximum 1 position at a time
+                days=30                 # Backtest on last 30 days
             )
             
             results = backtester.run_backtest()

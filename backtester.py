@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from typing import Dict, List
+from typing import Dict, List, Tuple
 from datetime import datetime, timedelta
 from logger_setup import get_logger
 from binance_connection import binance_connection
@@ -8,6 +8,9 @@ import joblib
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import matplotlib.pyplot as plt
 from pathlib import Path
+import ta
+import traceback
+import json
 
 # Configure logging
 backtest_logger = get_logger('backtest')
@@ -26,9 +29,11 @@ class Backtester:
     def __init__(self,
                  symbols: List[str],
                  initial_capital: float = 3.0,    # Start with $3 USDT
-                 position_size_pct: float = 0.3,  # Use 30% of capital per trade
-                 stop_loss_pct: float = 0.015,    # 1.5% stop loss
-                 take_profit_pct: float = 0.045,  # 4.5% take profit
+                 position_size_pct: float = 0.15,  # Reduced from 30% to 15% per trade
+                 stop_loss_pct: float = 0.01,     # Tighter 1% stop loss
+                 take_profit_pct: float = 0.03,   # Lower 3% take profit for more frequent wins
+                 min_confidence: float = 0.65,    # Minimum prediction confidence
+                 max_positions: int = 1,          # Maximum simultaneous positions
                  days: int = 30):                 # Backtest period
         
         self.symbols = symbols
@@ -36,13 +41,16 @@ class Backtester:
         self.position_size_pct = position_size_pct
         self.stop_loss_pct = stop_loss_pct
         self.take_profit_pct = take_profit_pct
+        self.min_confidence = min_confidence
+        self.max_positions = max_positions
         self.days = days
         
         # Performance tracking
         self.results = {
             'trades': [],
             'daily_pnl': [],
-            'metrics': {}
+            'metrics': {},
+            'active_positions': 0
         }
         
         # Create directories for results
@@ -55,6 +63,8 @@ class Backtester:
             f"\n- Position size: {position_size_pct:.1%}"
             f"\n- Stop loss: {stop_loss_pct:.1%}"
             f"\n- Take profit: {take_profit_pct:.1%}"
+            f"\n- Min confidence: {min_confidence:.1%}"
+            f"\n- Max positions: {max_positions}"
             f"\n- Test period: {days} days"
         )
     
@@ -65,6 +75,9 @@ class Backtester:
             capital = self.initial_capital
             win_trades = 0
             total_trades = 0
+            max_capital = capital
+            trades = []
+            daily_pnl = []
             
             for symbol in self.symbols:
                 backtest_logger.info(f"Running backtest for {symbol}...")
@@ -84,50 +97,76 @@ class Backtester:
                 df.set_index('timestamp', inplace=True)
                 
                 # Calculate features and make predictions
-                df = self._calculate_features(df)
-                predictions = self._make_predictions(df, symbol)
+                df, feature_columns = self._calculate_features(df)
+                predictions, confidences = self._make_predictions(df, symbol)
+                
+                # Skip if no valid predictions
+                if len(predictions) == 0 or len(confidences) == 0:
+                    backtest_logger.warning(f"No valid predictions for {symbol}, skipping...")
+                    continue
+                
+                # Ensure predictions array has same length as df
+                df = df.iloc[:len(predictions)]  # Trim df to match predictions length
                 
                 # Simulate trading
                 position = None
                 entry_price = 0
                 position_size = 0
+                entry_time = None
                 
-                for i in range(len(df) - 1):
+                for i in range(len(df) - 1):  # -1 to ensure we have next price
+                    current_time = df.index[i]
                     current_price = float(df['close'].iloc[i])
                     next_price = float(df['close'].iloc[i + 1])
                     prediction = predictions[i]
-                    timestamp = df.index[i]
+                    confidence = confidences[i]
                     
                     # Check if we can open a position
-                    if position is None and capital > 0:
-                        # Calculate position size (30% of current capital)
-                        position_size = capital * self.position_size_pct
-                        
-                        if prediction == 1:  # Buy signal
-                            position = 'long'
-                            entry_price = current_price
+                    if position is None:
+                        if confidence >= self.min_confidence:
+                            # Calculate position size based on ATR
+                            position_size = self._calculate_position_size(
+                                capital, current_price, float(df['atr'].iloc[i])
+                            )
                             
-                            self.results['trades'].append({
-                                'symbol': symbol,
-                                'timestamp': timestamp,
-                                'type': 'entry',
-                                'side': 'buy',
-                                'price': entry_price,
-                                'size': position_size
-                            })
-                        
-                        elif prediction == 0:  # Sell signal
-                            position = 'short'
-                            entry_price = current_price
-                            
-                            self.results['trades'].append({
-                                'symbol': symbol,
-                                'timestamp': timestamp,
-                                'type': 'entry',
-                                'side': 'sell',
-                                'price': entry_price,
-                                'size': position_size
-                            })
+                            if position_size > 0:
+                                if prediction == 1:  # Buy signal
+                                    position = 'long'
+                                    entry_price = current_price
+                                    entry_time = current_time
+                                    
+                                    trades.append({
+                                        'symbol': symbol,
+                                        'entry_time': entry_time,
+                                        'entry_price': entry_price,
+                                        'position_size': position_size,
+                                        'type': 'long',
+                                        'confidence': confidence
+                                    })
+                                    backtest_logger.info(
+                                        f"Opening LONG position for {symbol} at {entry_price:.8f}"
+                                        f"\n- Position size: ${position_size:.2f}"
+                                        f"\n- Confidence: {confidence:.2%}"
+                                    )
+                                
+                                elif prediction == 0:  # Sell signal
+                                    position = 'short'
+                                    entry_price = current_price
+                                    entry_time = current_time
+                                    
+                                    trades.append({
+                                        'symbol': symbol,
+                                        'entry_time': entry_time,
+                                        'entry_price': entry_price,
+                                        'position_size': position_size,
+                                        'type': 'short',
+                                        'confidence': confidence
+                                    })
+                                    backtest_logger.info(
+                                        f"Opening SHORT position for {symbol} at {entry_price:.8f}"
+                                        f"\n- Position size: ${position_size:.2f}"
+                                        f"\n- Confidence: {confidence:.2%}"
+                                    )
                     
                     # Check if we need to close position
                     elif position is not None:
@@ -140,24 +179,32 @@ class Backtester:
                         if position == 'long':
                             # Check stop loss
                             if price_change <= -self.stop_loss_pct:
-                                pnl = position_size * -self.stop_loss_pct
+                                pnl = -position_size * self.stop_loss_pct
                                 exit_reason = 'stop_loss'
                             # Check take profit
                             elif price_change >= self.take_profit_pct:
                                 pnl = position_size * self.take_profit_pct
                                 exit_reason = 'take_profit'
+                            # Check trend reversal
+                            elif prediction == 0 and confidence >= self.min_confidence:
+                                pnl = position_size * price_change
+                                exit_reason = 'signal_reversal'
                         
                         else:  # Short position
                             # Check stop loss
                             if price_change >= self.stop_loss_pct:
-                                pnl = position_size * -self.stop_loss_pct
+                                pnl = -position_size * self.stop_loss_pct
                                 exit_reason = 'stop_loss'
                             # Check take profit
                             elif price_change <= -self.take_profit_pct:
                                 pnl = position_size * self.take_profit_pct
                                 exit_reason = 'take_profit'
+                            # Check trend reversal
+                            elif prediction == 1 and confidence >= self.min_confidence:
+                                pnl = position_size * -price_change
+                                exit_reason = 'signal_reversal'
                         
-                        # Close position if stop loss or take profit hit
+                        # Close position if exit condition met
                         if exit_reason:
                             capital += pnl
                             total_pnl += pnl
@@ -165,37 +212,56 @@ class Backtester:
                             if pnl > 0:
                                 win_trades += 1
                             
-                            self.results['trades'].append({
-                                'symbol': symbol,
-                                'timestamp': timestamp,
-                                'type': 'exit',
-                                'side': 'sell' if position == 'long' else 'buy',
-                                'price': next_price,
-                                'size': position_size,
+                            # Update max capital for drawdown calculation
+                            max_capital = max(max_capital, capital)
+                            
+                            # Record trade exit
+                            trades[-1].update({
+                                'exit_time': current_time,
+                                'exit_price': next_price,
                                 'pnl': pnl,
                                 'exit_reason': exit_reason
                             })
                             
-                            position = None
-                            self.results['daily_pnl'].append({
-                                'timestamp': timestamp,
+                            backtest_logger.info(
+                                f"Closing {position.upper()} position for {symbol}"
+                                f"\n- Entry price: {entry_price:.8f}"
+                                f"\n- Exit price: {next_price:.8f}"
+                                f"\n- PnL: ${pnl:.2f}"
+                                f"\n- Exit reason: {exit_reason}"
+                            )
+                            
+                            # Record daily PnL
+                            daily_pnl.append({
+                                'timestamp': current_time,
                                 'pnl': pnl,
                                 'capital': capital
                             })
+                            
+                            position = None
+                            entry_price = 0
+                            position_size = 0
+                            entry_time = None
             
             # Calculate final metrics
             win_rate = win_trades / total_trades if total_trades > 0 else 0
             total_return = (capital - self.initial_capital) / self.initial_capital
+            max_drawdown = (max_capital - min([p['capital'] for p in daily_pnl], default=capital)) / max_capital if daily_pnl else 0
             
-            self.results['metrics'] = {
-                'total_pnl': total_pnl,
-                'total_return_pct': total_return * 100,
-                'win_rate': win_rate * 100,
-                'total_trades': total_trades,
-                'win_trades': win_trades,
-                'loss_trades': total_trades - win_trades,
-                'final_capital': capital,
-                'max_drawdown_pct': self._calculate_max_drawdown() * 100
+            # Store results
+            self.results = {
+                'trades': trades,
+                'daily_pnl': daily_pnl,
+                'metrics': {
+                    'total_pnl': total_pnl,
+                    'total_return_pct': total_return * 100,
+                    'win_rate': win_rate * 100,
+                    'total_trades': total_trades,
+                    'win_trades': win_trades,
+                    'loss_trades': total_trades - win_trades,
+                    'final_capital': capital,
+                    'max_drawdown_pct': max_drawdown * 100
+                }
             }
             
             # Generate performance plots
@@ -210,36 +276,62 @@ class Backtester:
             backtest_logger.error(f"Error in backtest: {e}")
             raise
     
-    def _calculate_features(self, df: pd.DataFrame) -> pd.DataFrame:
+    def _calculate_features(self, df):
         """Calculate technical indicators"""
         try:
-            # RSI
-            delta = df['close'].diff()
-            gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
-            loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
-            rs = gain / loss
-            df['rsi'] = 100 - (100 / (1 + rs))
+            # RSI with multiple periods
+            df['rsi'] = ta.momentum.RSIIndicator(df['close'], window=14).rsi()
+            df['rsi_slow'] = ta.momentum.RSIIndicator(df['close'], window=21).rsi()
             
             # MACD
-            exp1 = df['close'].ewm(span=12, adjust=False).mean()
-            exp2 = df['close'].ewm(span=26, adjust=False).mean()
-            df['macd'] = exp1 - exp2
-            df['macd_signal'] = df['macd'].ewm(span=9, adjust=False).mean()
-            df['macd_diff'] = df['macd'] - df['macd_signal']
+            macd = ta.trend.MACD(df['close'])
+            df['macd'] = macd.macd()
+            df['macd_signal'] = macd.macd_signal()
+            df['macd_diff'] = macd.macd_diff()
             
             # Bollinger Bands
-            df['sma_20'] = df['close'].rolling(window=20).mean()
-            df['bb_upper'] = df['sma_20'] + 2 * df['close'].rolling(window=20).std()
-            df['bb_lower'] = df['sma_20'] - 2 * df['close'].rolling(window=20).std()
+            bb = ta.volatility.BollingerBands(df['close'])
+            df['bb_high'] = bb.bollinger_hband()
+            df['bb_low'] = bb.bollinger_lband()
+            df['bb_mid'] = bb.bollinger_mavg()
+            df['bb_width'] = (df['bb_high'] - df['bb_low']) / df['bb_mid']
             
-            # Volatility
-            df['atr'] = self._calculate_atr(df)
+            # Moving Averages
+            df['sma_20'] = ta.trend.SMAIndicator(df['close'], window=20).sma_indicator()
+            df['sma_50'] = ta.trend.SMAIndicator(df['close'], window=50).sma_indicator()
+            df['sma_200'] = ta.trend.SMAIndicator(df['close'], window=200).sma_indicator()
+            df['ema_9'] = ta.trend.EMAIndicator(df['close'], window=9).ema_indicator()
             
-            # Volume indicators
+            # ATR and Volatility
+            df['atr'] = ta.volatility.AverageTrueRange(df['high'], df['low'], df['close']).average_true_range()
+            df['volatility'] = df['close'].rolling(window=20).std() / df['close'].rolling(window=20).mean()
+            
+            # Momentum Indicators
+            df['price_momentum'] = df['close'].pct_change(periods=10)
+            df['cci'] = ta.trend.CCIIndicator(df['high'], df['low'], df['close']).cci()
+            df['stoch_k'] = ta.momentum.StochasticOscillator(df['high'], df['low'], df['close']).stoch()
+            df['stoch_d'] = ta.momentum.StochasticOscillator(df['high'], df['low'], df['close']).stoch_signal()
+            
+            # Volume Indicators
             df['volume_sma'] = df['volume'].rolling(window=20).mean()
-            df['volume_ratio'] = df['volume'] / df['volume_sma']
+            df['volume_momentum'] = df['volume'].pct_change(periods=10)
+            df['obv'] = ta.volume.OnBalanceVolumeIndicator(df['close'], df['volume']).on_balance_volume()
             
-            return df
+            # Ensure all required features are present
+            feature_columns = [
+                'open', 'high', 'low', 'close', 'volume',
+                'rsi', 'rsi_slow', 'macd', 'macd_signal', 'macd_diff',
+                'bb_high', 'bb_low', 'bb_mid', 'bb_width',
+                'sma_20', 'sma_50', 'sma_200', 'ema_9',
+                'atr', 'volatility', 'price_momentum',
+                'cci', 'stoch_k', 'stoch_d',
+                'volume_sma', 'volume_momentum', 'obv'
+            ]
+            
+            # Handle NaN values
+            df = df.ffill().bfill()
+            
+            return df, feature_columns
             
         except Exception as e:
             backtest_logger.error(f"Error calculating features: {e}")
@@ -260,31 +352,56 @@ class Backtester:
         
         return atr
     
-    def _make_predictions(self, df: pd.DataFrame, symbol: str) -> np.ndarray:
+    def _make_predictions(self, df, symbol):
         """Make predictions using the trained model"""
         try:
-            # Load model
-            model_path = f'models/real_money_{symbol.lower()}_model.pkl'
-            if not Path(model_path).exists():
-                backtest_logger.error(f"No trained model found for {symbol}")
-                return np.zeros(len(df))
+            # Load model and scaler
+            model = joblib.load('models/trading_model.pkl')
+            scaler = joblib.load('models/feature_scaler.pkl')
             
-            model = joblib.load(model_path)
+            # Load feature names
+            with open('data/feature_names.json', 'r') as f:
+                feature_names = json.load(f)['features']
             
-            # Prepare features
-            feature_columns = [
-                'rsi', 'macd', 'macd_signal', 'macd_diff',
-                'sma_20', 'volume_ratio', 'atr'
-            ]
+            # Drop rows with NaN values
+            df_clean = df.dropna()
+            if len(df_clean) == 0:
+                backtest_logger.warning("No valid data after dropping NaN values")
+                return np.array([]), np.array([])
             
-            X = df[feature_columns].values
+            backtest_logger.info(f"Processing {len(df_clean)} rows for {symbol}")
+            
+            # Create feature matrix using saved feature names
+            try:
+                X = df_clean[feature_names].values
+            except KeyError as e:
+                backtest_logger.error(f"Missing features for {symbol}: {e}")
+                backtest_logger.error(f"Available features: {df_clean.columns.tolist()}")
+                return np.array([]), np.array([])
+            
+            # Scale features
+            X_scaled = scaler.transform(X)
             
             # Make predictions
-            return model.predict(X)
+            predictions = model.predict(X_scaled)
+            confidences = np.max(model.predict_proba(X_scaled), axis=1)
+            
+            # Log prediction distribution
+            unique, counts = np.unique(predictions, return_counts=True)
+            distribution = dict(zip(unique, counts))
+            backtest_logger.info(f"Prediction distribution for {symbol}: {distribution}")
+            
+            # Ensure predictions array matches data length
+            if len(predictions) != len(df_clean):
+                backtest_logger.error(f"Prediction length mismatch: {len(predictions)} vs {len(df_clean)}")
+                return np.array([]), np.array([])
+            
+            return predictions, confidences
             
         except Exception as e:
             backtest_logger.error(f"Error making predictions: {e}")
-            return np.zeros(len(df))
+            traceback.print_exc()
+            return np.array([]), np.array([])
     
     def _calculate_max_drawdown(self) -> float:
         """Calculate maximum drawdown from daily PnL"""
@@ -301,7 +418,11 @@ class Backtester:
     def _generate_plots(self):
         """Generate performance visualization plots"""
         try:
-            # Create DataFrame from results
+            if not self.results['trades'] or not self.results['daily_pnl']:
+                backtest_logger.warning("No trades or PnL data to plot")
+                return
+            
+            # Create DataFrames from results
             trades_df = pd.DataFrame(self.results['trades'])
             pnl_df = pd.DataFrame(self.results['daily_pnl'])
             
@@ -324,8 +445,7 @@ class Backtester:
             
             # Plot 2: Trade Distribution
             plt.figure()
-            exit_trades = trades_df[trades_df['type'] == 'exit']
-            plt.hist(exit_trades['pnl'], bins=30, edgecolor='black')
+            plt.hist(trades_df['pnl'].dropna(), bins=30, edgecolor='black')
             plt.title('Trade PnL Distribution', fontsize=12, pad=15)
             plt.xlabel('PnL (USDT)', fontsize=10)
             plt.ylabel('Frequency', fontsize=10)
@@ -348,8 +468,8 @@ class Backtester:
             
             # Plot 4: Win/Loss Ratio
             plt.figure()
-            win_trades = exit_trades[exit_trades['pnl'] > 0]
-            loss_trades = exit_trades[exit_trades['pnl'] <= 0]
+            win_trades = trades_df[trades_df['pnl'] > 0]
+            loss_trades = trades_df[trades_df['pnl'] <= 0]
             plt.bar(['Winning Trades', 'Losing Trades'], 
                    [len(win_trades), len(loss_trades)],
                    color=['green', 'red'])
@@ -363,28 +483,31 @@ class Backtester:
             backtest_logger.info("Generated performance plots successfully")
             
         except Exception as e:
-            backtest_logger.error(f"Error generating plots: {e}")
+            backtest_logger.error(f"Error generating plots: {e}", exc_info=True)
             backtest_logger.warning("Continuing without plots...")
     
     def _save_results(self):
         """Save backtest results to file"""
         try:
+            if not self.results['trades'] or not self.results['daily_pnl']:
+                backtest_logger.warning("No trades or PnL data to save")
+                return
+            
             # Save detailed results
-            results_df = pd.DataFrame(self.results['trades'])
-            results_df.to_csv('results/backtest_trades.csv', index=False)
+            trades_df = pd.DataFrame(self.results['trades'])
+            trades_df.to_csv('results/backtest_trades.csv', index=False)
             
             # Save daily PnL
             pnl_df = pd.DataFrame(self.results['daily_pnl'])
             pnl_df.to_csv('results/daily_pnl.csv', index=False)
             
             # Calculate additional metrics
-            exit_trades = results_df[results_df['type'] == 'exit']
-            win_trades = exit_trades[exit_trades['pnl'] > 0]
-            loss_trades = exit_trades[exit_trades['pnl'] <= 0]
+            win_trades = trades_df[trades_df['pnl'] > 0]
+            loss_trades = trades_df[trades_df['pnl'] <= 0]
             
             avg_win = win_trades['pnl'].mean() if len(win_trades) > 0 else 0
             avg_loss = loss_trades['pnl'].mean() if len(loss_trades) > 0 else 0
-            profit_factor = abs(win_trades['pnl'].sum() / loss_trades['pnl'].sum()) if len(loss_trades) > 0 else float('inf')
+            profit_factor = abs(win_trades['pnl'].sum() / loss_trades['pnl'].sum()) if len(loss_trades) > 0 and loss_trades['pnl'].sum() != 0 else float('inf')
             
             # Save metrics summary
             with open('results/backtest_metrics.txt', 'w') as f:
@@ -410,7 +533,41 @@ class Backtester:
             backtest_logger.info("Saved backtest results to 'results' directory")
             
         except Exception as e:
-            backtest_logger.error(f"Error saving results: {e}")
+            backtest_logger.error(f"Error saving results: {e}", exc_info=True)
+    
+    def _calculate_position_size(self, capital: float, current_price: float, atr: float) -> float:
+        """Calculate position size based on capital and volatility"""
+        try:
+            # Base position size (15% of capital)
+            base_size = capital * self.position_size_pct
+            
+            # Less aggressive volatility adjustment
+            volatility_factor = 1.0 - min(atr / current_price, 0.3)  # Cap at 30% reduction
+            adjusted_size = base_size * volatility_factor
+            
+            # Lower minimum position size for small capital
+            min_position = min(0.1, capital * 0.05)  # Min of $0.1 or 5% of capital
+            if adjusted_size < min_position:
+                backtest_logger.debug(
+                    f"Position size too small: ${adjusted_size:.2f} < ${min_position:.2f}"
+                    f"\n- Capital: ${capital:.2f}"
+                    f"\n- Base size: ${base_size:.2f}"
+                    f"\n- Volatility factor: {volatility_factor:.2f}"
+                )
+                return 0.0
+            
+            backtest_logger.debug(
+                f"Calculated position size: ${adjusted_size:.2f}"
+                f"\n- Capital: ${capital:.2f}"
+                f"\n- Base size: ${base_size:.2f}"
+                f"\n- Volatility factor: {volatility_factor:.2f}"
+            )
+            
+            return adjusted_size
+            
+        except Exception as e:
+            backtest_logger.error(f"Error calculating position size: {e}")
+            return 0.0
 
 def main():
     # Example usage
@@ -422,9 +579,11 @@ def main():
     backtester = Backtester(
         symbols=symbols,
         initial_capital=3.0,     # Start with $3 USDT
-        position_size_pct=0.3,   # Use 30% of capital per trade
-        stop_loss_pct=0.015,     # 1.5% stop loss
-        take_profit_pct=0.045,   # 4.5% take profit
+        position_size_pct=0.15,   # Reduced from 30% to 15% per trade
+        stop_loss_pct=0.01,     # Tighter 1% stop loss
+        take_profit_pct=0.03,   # Lower 3% take profit for more frequent wins
+        min_confidence=0.65,    # Minimum prediction confidence
+        max_positions=1,          # Maximum simultaneous positions
         days=30                  # Backtest on last 30 days
     )
     

@@ -97,12 +97,12 @@ class PricePredictor:
                     if 'result' in data:
                         prediction_logger.info(f"Subscription response: {data}")
                         return
-                        
+                    
                     # Validate message structure
                     if not all(key in data for key in ['e', 's']):
                         prediction_logger.warning(f"Received incomplete message: {data}")
                         return
-                        
+                    
                     # Handle kline messages
                     if data['e'] == 'kline':
                         if 'k' not in data:
@@ -205,16 +205,15 @@ class PricePredictor:
             # Handle any NaN values
             df = df.ffill().bfill()
             
-            # Select latest features
-            features = df[self.feature_names].iloc[-1:]
-            
-            # Scale features
-            X = self.scaler.transform(features)
+            # Prepare features
+            features = self.prepare_features(df)
+            if features is None:
+                return {'success': False, 'error': 'Failed to prepare features'}
             
             # Make prediction
-            prediction = self.model.predict(X)[0]
-            prob = self.model.predict_proba(X)[0]
-            confidence = prob[1] if prediction == 1 else prob[0]
+            predictions, confidences = self.predict(features)
+            prediction = predictions[-1]
+            confidence = confidences[-1]
             
             current_price = float(df['close'].iloc[-1])
             
@@ -271,12 +270,22 @@ class PricePredictor:
     def calculate_technical_indicators(self, df: pd.DataFrame) -> pd.DataFrame:
         """Calculate technical indicators for prediction"""
         try:
-            # RSI
+            # RSI (standard and slow)
             delta = df['close'].diff()
-            gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
-            loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
-            rs = gain / loss
+            gain = (delta.where(delta > 0, 0))
+            loss = (-delta.where(delta < 0, 0))
+            
+            # Standard RSI (14 periods)
+            avg_gain = gain.rolling(window=14).mean()
+            avg_loss = loss.rolling(window=14).mean()
+            rs = avg_gain / avg_loss
             df['rsi'] = 100 - (100 / (1 + rs))
+            
+            # Slow RSI (21 periods)
+            avg_gain_slow = gain.rolling(window=21).mean()
+            avg_loss_slow = loss.rolling(window=21).mean()
+            rs_slow = avg_gain_slow / avg_loss_slow
+            df['rsi_slow'] = 100 - (100 / (1 + rs_slow))
             
             # MACD
             exp1 = df['close'].ewm(span=12, adjust=False).mean()
@@ -292,11 +301,13 @@ class PricePredictor:
             bb_std_dev = df['close'].rolling(window=bb_period).std()
             df['bb_high'] = df['bb_mid'] + (bb_std * bb_std_dev)
             df['bb_low'] = df['bb_mid'] - (bb_std * bb_std_dev)
+            df['bb_width'] = (df['bb_high'] - df['bb_low']) / df['bb_mid']
             
             # Moving Averages
             df['sma_20'] = df['close'].rolling(window=20).mean()
             df['sma_50'] = df['close'].rolling(window=50).mean()
             df['sma_200'] = df['close'].rolling(window=200).mean()
+            df['ema_9'] = df['close'].ewm(span=9, adjust=False).mean()
             
             # ATR (Average True Range)
             high_low = df['high'] - df['low']
@@ -305,19 +316,75 @@ class PricePredictor:
             ranges = pd.concat([high_low, high_close, low_close], axis=1)
             df['atr'] = ranges.max(axis=1).rolling(14).mean()
             
-            # Momentum indicators
-            df['price_momentum'] = df['close'].pct_change()
-            df['volume_sma'] = df['volume'].rolling(window=20).mean()
-            df['volume_momentum'] = df['volume'].pct_change()
+            # Enhanced features
+            df['price_change'] = df['close'].pct_change()
+            df['volume_change'] = df['volume'].pct_change()
+            
+            # Price momentum features
+            for period in [5, 10, 20]:
+                df[f'momentum_{period}'] = df['close'].pct_change(periods=period)
+                df[f'volume_momentum_{period}'] = df['volume'].pct_change(periods=period)
+            
+            # Volatility features
+            df['volatility'] = df['close'].rolling(window=20).std() / df['close'].rolling(window=20).mean()
+            df['high_low_range'] = (df['high'] - df['low']) / df['close']
+            
+            # Trend features
+            df['trend_strength'] = abs(df['ema_9'] - df['sma_20']) / df['close']
+            df['trend_direction'] = np.where(df['ema_9'] > df['sma_20'], 1, -1)
+            
+            # Price position and range
+            df['price_range'] = (df['high'] - df['low']) / df['close']
+            df['price_position'] = (df['close'] - df['low']) / (df['high'] - df['low'])
             
             return df
             
         except Exception as e:
-            logging.error(f"Error calculating technical indicators: {e}")
+            prediction_logger.error(f"Error calculating technical indicators: {e}")
             raise
     
-    def prepare_features(self, symbol: str) -> Optional[pd.DataFrame]:
-        """Prepare features for prediction using real-time data"""
+    def prepare_features(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Prepare features for prediction"""
+        try:
+            # Calculate technical indicators
+            features = pd.DataFrame(index=df.index)
+            
+            # Ensure all required features are present and in correct order
+            for feature in self.feature_names:
+                if feature not in df.columns:
+                    prediction_logger.warning(f"Missing feature: {feature}")
+                    return None
+                features[feature] = df[feature]
+            
+            # Scale features
+            scaled_features = self.scaler.transform(features)
+            return pd.DataFrame(scaled_features, columns=self.feature_names, index=features.index)
+            
+        except Exception as e:
+            prediction_logger.error(f"Error preparing features: {e}")
+            return None
+    
+    def predict(self, df: pd.DataFrame) -> tuple:
+        """Make predictions using the model"""
+        try:
+            # Make predictions
+            predictions = self.model.predict(df)
+            probabilities = self.model.predict_proba(df)
+            confidences = np.max(probabilities, axis=1)
+            
+            prediction_logger.info(f"Prediction distribution: {pd.Series(predictions).value_counts().to_dict()}")
+            
+            return predictions, confidences
+            
+        except Exception as e:
+            prediction_logger.error(f"Error making prediction: {e}")
+            return [], []
+    
+    def make_prediction(self, symbol: str) -> Dict:
+        """Make prediction for a given symbol
+        Returns:
+            Dict containing prediction (0 or 1) and confidence score
+        """
         try:
             # Get historical klines for technical indicator calculation
             klines = binance_connection.get_historical_klines(symbol, '1h', 200)
@@ -343,35 +410,15 @@ class PricePredictor:
             # Handle any NaN values
             df = df.ffill().bfill()
             
-            # Select only the required features
-            features = df[self.feature_names].iloc[-1:]
-            
-            return features
-            
-        except Exception as e:
-            logging.error(f"Error preparing features for {symbol}: {e}")
-            return None
-    
-    def make_prediction(self, symbol: str) -> Dict:
-        """Make prediction for a given symbol
-        Returns:
-            Dict containing prediction (0 or 1) and confidence score
-        """
-        try:
             # Prepare features
-            features = self.prepare_features(symbol)
+            features = self.prepare_features(df)
             if features is None:
                 return {'success': False, 'error': 'Failed to prepare features'}
             
-            # Scale features
-            X = self.scaler.transform(features)
-            
             # Make prediction
-            prediction = self.model.predict(X)[0]
-            
-            # Get prediction probability
-            prob = self.model.predict_proba(X)[0]
-            confidence = prob[1] if prediction == 1 else prob[0]
+            predictions, confidences = self.predict(features)
+            prediction = predictions[-1]
+            confidence = confidences[-1]
             
             current_price = binance_connection.get_symbol_price(symbol)
             
@@ -416,7 +463,7 @@ if __name__ == "__main__":
             print(f"Price: {prediction['current_price']}")
         else:
             print(f"\nError: {prediction['error']}")
-    
+
     # Start streaming for test symbols
     test_symbols = [
         'AMBUSDT',  # Best performer from backtest
@@ -434,4 +481,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\nStopping streams...")
         for symbol in test_symbols:
-            stop_streaming(symbol) 
+            stop_streaming(symbol)

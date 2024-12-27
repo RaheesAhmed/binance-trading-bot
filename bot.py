@@ -344,7 +344,6 @@ def main():
     symbols = [
         'AMBUSDT',  # Best performer: 105.58% return, 6.60 Sharpe
         'ARUSDT',   # Second best: 98.60% return, 6.78 Sharpe
-        'AIUSDT',   # Third best: 97.06% return, 5.98 Sharpe
     ]
     
     try:
@@ -352,12 +351,12 @@ def main():
         bot = EnhancedTradingBot(
             symbols=symbols,
             initial_capital=10000.0,
-            position_size_pct=0.01,     # 1% of capital per trade
-            min_confidence=0.60,        # Minimum 60% prediction confidence
-            stop_loss_pct=0.02,         # 2% stop loss
-            take_profit_pct=0.06,       # 6% take profit
-            max_positions=3,            # Maximum 3 simultaneous positions
-            max_daily_trades=10         # Maximum 10 trades per day
+            position_size_pct=0.005,    # Reduced to 0.5% of capital per trade
+            min_confidence=0.70,        # Increased to 70% prediction confidence
+            stop_loss_pct=0.01,         # Tighter 1% stop loss
+            take_profit_pct=0.03,       # Lower 3% take profit for more frequent wins
+            max_positions=1,            # Reduced to 1 position at a time
+            max_daily_trades=5          # Reduced to 5 trades per day
         )
         
         bot_logger.info("=" * 50)
