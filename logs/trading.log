@@ -1,0 +1,79 @@
+2024-12-27 23:24:36,963 - INFO - Starting trading execution...
+2024-12-27 23:24:37,299 - ERROR - Error getting features for BTCUSDT: "['bb_high', 'bb_low', 'bb_mid', 'sma_20', 'sma_50', 'sma_200', 'atr', 'price_momentum', 'volume_sma', 'volume_momentum'] not in index"
+2024-12-27 23:24:37,684 - ERROR - Error getting features for ETHUSDT: "['bb_high', 'bb_low', 'bb_mid', 'sma_20', 'sma_50', 'sma_200', 'atr', 'price_momentum', 'volume_sma', 'volume_momentum'] not in index"
+2024-12-27 23:24:38,076 - ERROR - Error getting features for BNBUSDT: "['bb_high', 'bb_low', 'bb_mid', 'sma_20', 'sma_50', 'sma_200', 'atr', 'price_momentum', 'volume_sma', 'volume_momentum'] not in index"
+2024-12-27 23:24:38,477 - ERROR - Error getting features for ADAUSDT: "['bb_high', 'bb_low', 'bb_mid', 'sma_20', 'sma_50', 'sma_200', 'atr', 'price_momentum', 'volume_sma', 'volume_momentum'] not in index"
+2024-12-27 23:24:39,067 - ERROR - Error getting features for DOGEUSDT: "['bb_high', 'bb_low', 'bb_mid', 'sma_20', 'sma_50', 'sma_200', 'atr', 'price_momentum', 'volume_sma', 'volume_momentum'] not in index"
+2024-12-27 23:24:39,542 - ERROR - Error getting features for XRPUSDT: "['bb_high', 'bb_low', 'bb_mid', 'sma_20', 'sma_50', 'sma_200', 'atr', 'price_momentum', 'volume_sma', 'volume_momentum'] not in index"
+2024-12-27 23:24:44,923 - ERROR - Error getting features for BTCUSDT: "['bb_high', 'bb_low', 'bb_mid', 'sma_20', 'sma_50', 'sma_200', 'atr', 'price_momentum', 'volume_sma', 'volume_momentum'] not in index"
+2024-12-27 23:24:45,317 - ERROR - Error getting features for ETHUSDT: "['bb_high', 'bb_low', 'bb_mid', 'sma_20', 'sma_50', 'sma_200', 'atr', 'price_momentum', 'volume_sma', 'volume_momentum'] not in index"
+2024-12-27 23:24:45,861 - ERROR - Error getting features for BNBUSDT: "['bb_high', 'bb_low', 'bb_mid', 'sma_20', 'sma_50', 'sma_200', 'atr', 'price_momentum', 'volume_sma', 'volume_momentum'] not in index"
+2024-12-27 23:24:46,258 - ERROR - Error getting features for ADAUSDT: "['bb_high', 'bb_low', 'bb_mid', 'sma_20', 'sma_50', 'sma_200', 'atr', 'price_momentum', 'volume_sma', 'volume_momentum'] not in index"
+2024-12-27 23:24:46,637 - ERROR - Error getting features for DOGEUSDT: "['bb_high', 'bb_low', 'bb_mid', 'sma_20', 'sma_50', 'sma_200', 'atr', 'price_momentum', 'volume_sma', 'volume_momentum'] not in index"
+2024-12-27 23:24:47,328 - ERROR - Error getting features for XRPUSDT: "['bb_high', 'bb_low', 'bb_mid', 'sma_20', 'sma_50', 'sma_200', 'atr', 'price_momentum', 'volume_sma', 'volume_momentum'] not in index"
+2024-12-27 23:24:52,739 - ERROR - Error getting features for BTCUSDT: "['bb_high', 'bb_low', 'bb_mid', 'sma_20', 'sma_50', 'sma_200', 'atr', 'price_momentum', 'volume_sma', 'volume_momentum'] not in index"
+2024-12-27 23:24:53,135 - ERROR - Error getting features for ETHUSDT: "['bb_high', 'bb_low', 'bb_mid', 'sma_20', 'sma_50', 'sma_200', 'atr', 'price_momentum', 'volume_sma', 'volume_momentum'] not in index"
+2024-12-27 23:24:53,579 - ERROR - Error getting features for BNBUSDT: "['bb_high', 'bb_low', 'bb_mid', 'sma_20', 'sma_50', 'sma_200', 'atr', 'price_momentum', 'volume_sma', 'volume_momentum'] not in index"
+2024-12-27 23:24:53,955 - ERROR - Error getting features for ADAUSDT: "['bb_high', 'bb_low', 'bb_mid', 'sma_20', 'sma_50', 'sma_200', 'atr', 'price_momentum', 'volume_sma', 'volume_momentum'] not in index"
+2024-12-27 23:24:54,288 - ERROR - Error getting features for DOGEUSDT: "['bb_high', 'bb_low', 'bb_mid', 'sma_20', 'sma_50', 'sma_200', 'atr', 'price_momentum', 'volume_sma', 'volume_momentum'] not in index"
+2024-12-27 23:24:54,670 - ERROR - Error getting features for XRPUSDT: "['bb_high', 'bb_low', 'bb_mid', 'sma_20', 'sma_50', 'sma_200', 'atr', 'price_momentum', 'volume_sma', 'volume_momentum'] not in index"
+2024-12-27 23:25:37,506 - INFO - Starting trading execution...
+2024-12-27 23:27:38,578 - INFO - Initial USDT balance: 3.17003899
+2024-12-27 23:27:38,578 - INFO - Starting trading execution...
+2024-12-27 23:27:44,737 - WARNING - Insufficient balance for SELL order of 0.0001 ETHUSDT
+2024-12-27 23:27:52,372 - WARNING - Insufficient balance for SELL order of 0.4 ADAUSDT
+2024-12-27 23:27:56,312 - WARNING - Insufficient balance for SELL order of 1.0 DOGEUSDT
+2024-12-27 23:28:13,108 - WARNING - Insufficient balance for SELL order of 0.0001 ETHUSDT
+2024-12-27 23:28:20,945 - WARNING - Insufficient balance for SELL order of 0.4 ADAUSDT
+2024-12-27 23:28:25,512 - WARNING - Insufficient balance for SELL order of 1.0 DOGEUSDT
+2024-12-27 23:28:40,873 - WARNING - Insufficient balance for SELL order of 0.0001 ETHUSDT
+2024-12-27 23:28:48,108 - WARNING - Insufficient balance for SELL order of 0.4 ADAUSDT
+2024-12-27 23:42:22,399 - ERROR - Fatal error in trading execution: Trading bot must be run on testnet for paper trading!
+2024-12-27 23:59:19,219 - trading - INFO - Initial USDT balance: 11434.150082
+Path: D:\binance-trading-bot\trade_executor.py:56
+Function: __init__
+---
+2024-12-27 23:59:19,224 - trading - WARNING - ==================================================
+Path: D:\binance-trading-bot\trade_executor.py:58
+Function: __init__
+---
+2024-12-27 23:59:19,227 - trading - WARNING - TESTNET MODE - Paper Trading Only
+Path: D:\binance-trading-bot\trade_executor.py:59
+Function: __init__
+---
+2024-12-27 23:59:19,227 - trading - WARNING - ==================================================
+Path: D:\binance-trading-bot\trade_executor.py:60
+Function: __init__
+---
+2024-12-27 23:59:19,237 - trading - INFO - Starting trade executor with scheduler...
+Path: D:\binance-trading-bot\trade_executor.py:406
+Function: main
+---
+2024-12-27 23:59:19,237 - trading - INFO - Starting trading bot with scheduler...
+Path: D:\binance-trading-bot\trade_executor.py:365
+Function: run
+---
+2024-12-27 23:59:19,265 - trading - INFO - Scheduler started successfully
+Path: D:\binance-trading-bot\trade_executor.py:369
+Function: run
+---
+2024-12-27 23:59:46,597 - trading - INFO - Shutting down trading bot...
+Path: D:\binance-trading-bot\trade_executor.py:376
+Function: run
+---
+2024-12-28 00:04:24,463 - trading - INFO - Initial USDT balance: 11434.150082
+Path: D:\binance-trading-bot\trade_executor.py:56
+Function: __init__
+---
+2024-12-28 00:04:24,468 - trading - WARNING - ==================================================
+Path: D:\binance-trading-bot\trade_executor.py:58
+Function: __init__
+---
+2024-12-28 00:04:24,472 - trading - WARNING - TESTNET MODE - Paper Trading Only
+Path: D:\binance-trading-bot\trade_executor.py:59
+Function: __init__
+---
+2024-12-28 00:04:24,472 - trading - WARNING - ==================================================
+Path: D:\binance-trading-bot\trade_executor.py:60
+Function: __init__
+---

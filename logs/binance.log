@@ -1,0 +1,214 @@
+2024-12-27 23:45:27,303 - ERROR - Production mode is not allowed! Please set USE_TESTNET=true in .env
+2024-12-27 23:46:39,905 - INFO - USE_TESTNET value from env: true
+2024-12-27 23:46:39,905 - INFO - Testnet mode: True
+2024-12-27 23:46:39,905 - INFO - API Key found: Yes
+2024-12-27 23:46:39,905 - INFO - API Secret found: Yes
+2024-12-27 23:46:41,814 - INFO - Initialized Binance Testnet client successfully
+2024-12-27 23:46:42,472 - INFO - Successfully connected to Binance Testnet
+2024-12-27 23:46:43,195 - WARNING - Running in TESTNET mode - Using paper trading only!
+2024-12-27 23:46:45,529 - INFO - Initial USDT balance (TESTNET): 10000.0
+2024-12-27 23:46:45,529 - WARNING - ==================================================
+2024-12-27 23:46:45,529 - WARNING - TESTNET MODE ACTIVE - NO REAL MONEY WILL BE USED
+2024-12-27 23:46:45,529 - WARNING - All trades are simulated with test funds
+2024-12-27 23:46:45,529 - WARNING - ==================================================
+2024-12-27 23:46:45,529 - INFO - Starting trading execution in TESTNET mode...
+2024-12-27 23:46:49,513 - WARNING - Insufficient balance for SELL order of 133156.0 AMBUSDT
+2024-12-27 23:46:53,977 - WARNING - Insufficient balance for SELL order of 58.45 ARUSDT
+2024-12-27 23:46:58,509 - WARNING - Insufficient balance for SELL order of 1595.9 AIUSDT
+2024-12-27 23:47:02,316 - WARNING - Insufficient balance for SELL order of 4286.0 ADXUSDT
+2024-12-27 23:47:08,020 - ERROR - Error placing orders for ACAUSDT: BinanceConnection.place_order() got an unexpected keyword argument 'stop_price'
+2024-12-27 23:47:19,080 - WARNING - Insufficient balance for SELL order of 146141.0 AMBUSDT
+2024-12-27 23:47:22,834 - WARNING - Insufficient balance for SELL order of 64.31 ARUSDT
+2024-12-27 23:47:26,155 - WARNING - Insufficient balance for SELL order of 1753.6 AIUSDT
+2024-12-27 23:47:30,325 - WARNING - Insufficient balance for SELL order of 4711.0 ADXUSDT
+2024-12-27 23:48:21,809 - INFO - USE_TESTNET value from env: true
+2024-12-27 23:48:21,809 - INFO - Testnet mode: True
+2024-12-27 23:48:21,809 - INFO - API Key found: Yes
+2024-12-27 23:48:21,809 - INFO - API Secret found: Yes
+2024-12-27 23:48:22,607 - INFO - Initialized Binance Testnet client successfully
+2024-12-27 23:48:23,266 - INFO - Successfully connected to Binance Testnet
+2024-12-27 23:48:23,938 - WARNING - Running in TESTNET mode - Using paper trading only!
+2024-12-27 23:48:26,275 - INFO - Initial USDT balance (TESTNET): 10989.799586
+2024-12-27 23:48:26,275 - WARNING - ==================================================
+2024-12-27 23:48:26,275 - WARNING - TESTNET MODE ACTIVE - NO REAL MONEY WILL BE USED
+2024-12-27 23:48:26,275 - WARNING - All trades are simulated with test funds
+2024-12-27 23:48:26,275 - WARNING - ==================================================
+2024-12-27 23:48:26,291 - INFO - Starting trading execution in TESTNET mode...
+2024-12-27 23:48:28,877 - INFO - Calculated position size for AMBUSDT: 14614.0 at price 0.00752
+2024-12-27 23:48:30,625 - INFO - Placing MARKET order: {'symbol': 'AMBUSDT', 'side': 'SELL', 'type': 'MARKET', 'quantity': 14614.0}
+2024-12-27 23:48:30,945 - INFO - Order placed successfully: 1148165
+2024-12-27 23:48:30,945 - INFO - Main order filled at price: 0.00749
+2024-12-27 23:48:30,945 - INFO - Placing STOP_LOSS order: {'symbol': 'AMBUSDT', 'side': 'BUY', 'type': 'STOP_LOSS', 'quantity': 14614.0, 'price': 0.0076704, 'stopPrice': 0.0076704}
+2024-12-27 23:48:31,252 - ERROR - Error placing STOP_LOSS order: APIError(code=-1106): Parameter 'price' sent when not required.
+2024-12-27 23:48:31,252 - INFO - Placing LIMIT order: {'symbol': 'AMBUSDT', 'side': 'BUY', 'type': 'LIMIT', 'quantity': 14614.0, 'price': 0.007068799999999999}
+2024-12-27 23:48:31,573 - ERROR - Error placing LIMIT order: APIError(code=-1102): Mandatory parameter 'timeInForce' was not sent, was empty/null, or malformed.
+2024-12-27 23:48:31,589 - INFO - Opened SELL position for AMBUSDT at 0.00749
+2024-12-27 23:48:31,589 - INFO - Stop Loss: 0.0076704, Take Profit: 0.007068799999999999
+2024-12-27 23:48:33,579 - INFO - Calculated position size for ARUSDT: 6.5 at price 17.07
+2024-12-27 23:48:34,755 - INFO - Placing MARKET order: {'symbol': 'ARUSDT', 'side': 'SELL', 'type': 'MARKET', 'quantity': 6.5}
+2024-12-27 23:48:35,319 - INFO - Order placed successfully: 3016124
+2024-12-27 23:48:35,319 - INFO - Main order filled at price: 17.06
+2024-12-27 23:48:35,319 - INFO - Placing STOP_LOSS order: {'symbol': 'ARUSDT', 'side': 'BUY', 'type': 'STOP_LOSS', 'quantity': 6.5, 'price': 17.4114, 'stopPrice': 17.4114}
+2024-12-27 23:48:35,930 - ERROR - Error placing STOP_LOSS order: APIError(code=-1106): Parameter 'price' sent when not required.
+2024-12-27 23:48:35,930 - INFO - Placing LIMIT order: {'symbol': 'ARUSDT', 'side': 'BUY', 'type': 'LIMIT', 'quantity': 6.5, 'price': 16.0458}
+2024-12-27 23:48:36,217 - ERROR - Error placing LIMIT order: APIError(code=-1102): Mandatory parameter 'timeInForce' was not sent, was empty/null, or malformed.
+2024-12-27 23:48:36,218 - INFO - Opened SELL position for ARUSDT at 17.06
+2024-12-27 23:48:36,219 - INFO - Stop Loss: 17.4114, Take Profit: 16.0458
+2024-12-27 23:48:39,254 - INFO - Calculated position size for AIUSDT: 178.9 at price 0.6265
+2024-12-27 23:48:40,928 - INFO - Placing MARKET order: {'symbol': 'AIUSDT', 'side': 'SELL', 'type': 'MARKET', 'quantity': 178.9}
+2024-12-27 23:48:41,185 - INFO - Order placed successfully: 4970795
+2024-12-27 23:48:41,185 - INFO - Main order filled at price: 0.6253
+2024-12-27 23:48:41,185 - INFO - Placing STOP_LOSS order: {'symbol': 'AIUSDT', 'side': 'BUY', 'type': 'STOP_LOSS', 'quantity': 178.9, 'price': 0.63903, 'stopPrice': 0.63903}
+2024-12-27 23:48:41,500 - ERROR - Error placing STOP_LOSS order: APIError(code=-1106): Parameter 'price' sent when not required.
+2024-12-27 23:48:41,503 - INFO - Placing LIMIT order: {'symbol': 'AIUSDT', 'side': 'BUY', 'type': 'LIMIT', 'quantity': 178.9, 'price': 0.5889099999999999}
+2024-12-27 23:48:41,805 - ERROR - Error placing LIMIT order: APIError(code=-1102): Mandatory parameter 'timeInForce' was not sent, was empty/null, or malformed.
+2024-12-27 23:48:41,820 - INFO - Opened SELL position for AIUSDT at 0.6253
+2024-12-27 23:48:41,820 - INFO - Stop Loss: 0.63903, Take Profit: 0.5889099999999999
+2024-12-27 23:48:44,788 - INFO - Calculated position size for ADXUSDT: 485.0 at price 0.2333
+2024-12-27 23:48:45,883 - INFO - Placing MARKET order: {'symbol': 'ADXUSDT', 'side': 'SELL', 'type': 'MARKET', 'quantity': 485.0}
+2024-12-27 23:48:46,121 - INFO - Order placed successfully: 1936596
+2024-12-27 23:48:46,121 - INFO - Main order filled at price: 0.2335
+2024-12-27 23:48:46,121 - INFO - Placing STOP_LOSS order: {'symbol': 'ADXUSDT', 'side': 'BUY', 'type': 'STOP_LOSS', 'quantity': 485.0, 'price': 0.237966, 'stopPrice': 0.237966}
+2024-12-27 23:48:46,448 - ERROR - Error placing STOP_LOSS order: APIError(code=-1106): Parameter 'price' sent when not required.
+2024-12-27 23:48:46,448 - INFO - Placing LIMIT order: {'symbol': 'ADXUSDT', 'side': 'BUY', 'type': 'LIMIT', 'quantity': 485.0, 'price': 0.219302}
+2024-12-27 23:48:46,701 - ERROR - Error placing LIMIT order: APIError(code=-1102): Mandatory parameter 'timeInForce' was not sent, was empty/null, or malformed.
+2024-12-27 23:48:46,701 - INFO - Opened SELL position for ADXUSDT at 0.2335
+2024-12-27 23:48:46,701 - INFO - Stop Loss: 0.237966, Take Profit: 0.219302
+2024-12-27 23:48:49,645 - INFO - Calculated position size for ACAUSDT: 1096.38 at price 0.1043
+2024-12-27 23:48:50,474 - INFO - Placing MARKET order: {'symbol': 'ACAUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 1096.38}
+2024-12-27 23:48:50,777 - INFO - Order placed successfully: 1759721
+2024-12-27 23:48:50,777 - INFO - Main order filled at price: 0.1043
+2024-12-27 23:48:50,777 - INFO - Placing STOP_LOSS order: {'symbol': 'ACAUSDT', 'side': 'SELL', 'type': 'STOP_LOSS', 'quantity': 1096.38, 'price': 0.102214, 'stopPrice': 0.102214}
+2024-12-27 23:48:51,103 - ERROR - Error placing STOP_LOSS order: APIError(code=-1106): Parameter 'price' sent when not required.
+2024-12-27 23:48:51,103 - INFO - Placing LIMIT order: {'symbol': 'ACAUSDT', 'side': 'SELL', 'type': 'LIMIT', 'quantity': 1096.38, 'price': 0.110558}
+2024-12-27 23:48:51,427 - ERROR - Error placing LIMIT order: APIError(code=-1102): Mandatory parameter 'timeInForce' was not sent, was empty/null, or malformed.
+2024-12-27 23:48:51,427 - INFO - Opened BUY position for ACAUSDT at 0.1043
+2024-12-27 23:48:51,427 - INFO - Stop Loss: 0.102214, Take Profit: 0.110558
+2024-12-27 23:51:21,537 - INFO - USE_TESTNET value from env: true
+2024-12-27 23:51:21,537 - INFO - Testnet mode: True
+2024-12-27 23:51:21,537 - INFO - API Key found: Yes
+2024-12-27 23:51:21,537 - INFO - API Secret found: Yes
+2024-12-27 23:51:22,306 - INFO - Initialized Binance Testnet client successfully
+2024-12-27 23:51:23,106 - INFO - Successfully connected to Binance Testnet
+2024-12-27 23:51:24,251 - INFO - Successfully loaded model, scaler, and feature names
+2024-12-27 23:51:25,244 - INFO - Prediction for AMBUSDT: {'success': True, 'symbol': 'AMBUSDT', 'prediction': 0, 'confidence': 0.5516289793111199, 'current_price': 0.00751, 'timestamp': '2024-12-27T23:51:25.244103'}
+2024-12-27 23:51:26,216 - INFO - Prediction for ARUSDT: {'success': True, 'symbol': 'ARUSDT', 'prediction': 0, 'confidence': 0.6540161632772841, 'current_price': 17.07, 'timestamp': '2024-12-27T23:51:26.216883'}
+2024-12-27 23:51:26,862 - INFO - Prediction for AIUSDT: {'success': True, 'symbol': 'AIUSDT', 'prediction': 0, 'confidence': 0.5369917428665102, 'current_price': 0.6243, 'timestamp': '2024-12-27T23:51:26.862872'}
+2024-12-27 23:54:30,989 - INFO - USE_TESTNET value from env: true
+2024-12-27 23:54:30,989 - INFO - Testnet mode: True
+2024-12-27 23:54:30,989 - INFO - API Key found: Yes
+2024-12-27 23:54:31,004 - INFO - API Secret found: Yes
+2024-12-27 23:54:31,900 - INFO - Initialized Binance Testnet client successfully
+2024-12-27 23:54:32,548 - INFO - Successfully connected to Binance Testnet
+2024-12-27 23:54:34,282 - INFO - Successfully loaded model, scaler, and feature names
+2024-12-27 23:54:34,862 - INFO - Initial USDT balance: 11320.909682
+2024-12-27 23:54:34,862 - WARNING - ==================================================
+2024-12-27 23:54:34,862 - WARNING - TESTNET MODE - Paper Trading Only
+2024-12-27 23:54:34,862 - WARNING - ==================================================
+2024-12-27 23:54:34,862 - INFO - Starting trade executor...
+2024-12-27 23:54:35,551 - INFO - Prediction for AMBUSDT: {'success': True, 'symbol': 'AMBUSDT', 'prediction': 0, 'confidence': 0.5516289793111199, 'current_price': 0.00751, 'timestamp': '2024-12-27T23:54:35.551557'}
+2024-12-27 23:54:35,551 - INFO - Prediction confidence 55.16% below minimum 60.00%
+2024-12-27 23:54:36,774 - INFO - Prediction for ARUSDT: {'success': True, 'symbol': 'ARUSDT', 'prediction': 0, 'confidence': 0.6540161632772842, 'current_price': 17.08, 'timestamp': '2024-12-27T23:54:36.774043'}
+2024-12-27 23:54:38,076 - INFO - Calculated position size for ARUSDT: 6.63 at price 17.08
+2024-12-27 23:54:38,076 - INFO - Placing MARKET order: {'symbol': 'ARUSDT', 'side': 'SELL', 'type': 'MARKET', 'quantity': 6.63}
+2024-12-27 23:54:38,641 - INFO - Order placed successfully: 3016271
+2024-12-27 23:54:38,656 - INFO - Placing STOP_LOSS order: {'symbol': 'ARUSDT', 'side': 'BUY', 'type': 'STOP_LOSS', 'quantity': 6.63, 'price': 17.421599999999998, 'stopPrice': 17.421599999999998}
+2024-12-27 23:54:38,907 - ERROR - Error placing STOP_LOSS order: APIError(code=-1106): Parameter 'price' sent when not required.
+2024-12-27 23:54:38,907 - INFO - Placing LIMIT order: {'symbol': 'ARUSDT', 'side': 'BUY', 'type': 'LIMIT', 'quantity': 6.63, 'price': 16.0552}
+2024-12-27 23:54:39,147 - ERROR - Error placing LIMIT order: APIError(code=-1102): Mandatory parameter 'timeInForce' was not sent, was empty/null, or malformed.
+2024-12-27 23:54:39,147 - INFO - Executed SELL trade for ARUSDT:
+2024-12-27 23:54:39,147 - INFO - Quantity: 6.63
+2024-12-27 23:54:39,147 - INFO - Entry Price: 17.08
+2024-12-27 23:54:39,147 - INFO - Stop Loss: 17.421599999999998
+2024-12-27 23:54:39,147 - INFO - Take Profit: 16.0552
+2024-12-27 23:54:39,147 - INFO - Confidence: 65.40%
+2024-12-27 23:54:40,086 - INFO - Prediction for AIUSDT: {'success': True, 'symbol': 'AIUSDT', 'prediction': 0, 'confidence': 0.5301891566315493, 'current_price': 0.6252, 'timestamp': '2024-12-27T23:54:40.086239'}
+2024-12-27 23:54:40,086 - INFO - Prediction confidence 53.02% below minimum 60.00%
+2024-12-27 23:54:47,025 - INFO - Prediction for ARUSDT: {'success': True, 'symbol': 'ARUSDT', 'prediction': 0, 'confidence': 0.6540161632772842, 'current_price': 17.08, 'timestamp': '2024-12-27T23:54:47.025690'}
+2024-12-27 23:54:48,854 - INFO - Prediction for AMBUSDT: {'success': True, 'symbol': 'AMBUSDT', 'prediction': 0, 'confidence': 0.5516289793111199, 'current_price': 0.00751, 'timestamp': '2024-12-27T23:54:48.854869'}
+2024-12-27 23:54:48,854 - INFO - Prediction confidence 55.16% below minimum 60.00%
+2024-12-27 23:54:49,894 - INFO - Prediction for AIUSDT: {'success': True, 'symbol': 'AIUSDT', 'prediction': 0, 'confidence': 0.5316098706207566, 'current_price': 0.6252, 'timestamp': '2024-12-27T23:54:49.894162'}
+2024-12-27 23:54:49,894 - INFO - Prediction confidence 53.16% below minimum 60.00%
+2024-12-27 23:54:56,461 - INFO - Prediction for ARUSDT: {'success': True, 'symbol': 'ARUSDT', 'prediction': 0, 'confidence': 0.6540161632772842, 'current_price': 17.08, 'timestamp': '2024-12-27T23:54:56.461711'}
+2024-12-27 23:54:57,401 - INFO - Prediction for AMBUSDT: {'success': True, 'symbol': 'AMBUSDT', 'prediction': 0, 'confidence': 0.55162897931112, 'current_price': 0.00751, 'timestamp': '2024-12-27T23:54:57.401065'}
+2024-12-27 23:54:57,401 - INFO - Prediction confidence 55.16% below minimum 60.00%
+2024-12-27 23:54:59,098 - INFO - Prediction for AIUSDT: {'success': True, 'symbol': 'AIUSDT', 'prediction': 0, 'confidence': 0.5316098706207566, 'current_price': 0.6253, 'timestamp': '2024-12-27T23:54:59.098966'}
+2024-12-27 23:54:59,098 - INFO - Prediction confidence 53.16% below minimum 60.00%
+2024-12-27 23:59:10,723 - INFO - USE_TESTNET value from env: true
+2024-12-27 23:59:10,723 - INFO - Testnet mode: True
+2024-12-27 23:59:10,723 - INFO - API Key found: Yes
+2024-12-27 23:59:10,725 - INFO - API Secret found: Yes
+2024-12-27 23:59:16,127 - INFO - Initialized Binance Testnet client successfully
+2024-12-27 23:59:16,392 - INFO - Successfully connected to Binance Testnet
+2024-12-27 23:59:18,717 - INFO - Successfully loaded model, scaler, and feature names
+2024-12-27 23:59:18,907 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2024-12-27 23:59:18,907 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2024-12-27 23:59:18,919 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2024-12-27 23:59:19,219 - INFO - Initial USDT balance: 11434.150082
+2024-12-27 23:59:19,224 - WARNING - ==================================================
+2024-12-27 23:59:19,227 - WARNING - TESTNET MODE - Paper Trading Only
+2024-12-27 23:59:19,227 - WARNING - ==================================================
+2024-12-27 23:59:19,237 - INFO - Starting trade executor with scheduler...
+2024-12-27 23:59:19,237 - INFO - Starting trading bot with scheduler...
+2024-12-27 23:59:19,249 - INFO - Added job "Hourly Trading Execution" to job store "default"
+2024-12-27 23:59:19,254 - INFO - Added job "Position Management" to job store "default"
+2024-12-27 23:59:19,254 - INFO - Added job "Daily Counter Reset" to job store "default"
+2024-12-27 23:59:19,254 - INFO - Scheduler started
+2024-12-27 23:59:19,265 - INFO - Scheduler started successfully
+2024-12-27 23:59:46,597 - INFO - Shutting down trading bot...
+2024-12-27 23:59:46,598 - INFO - Scheduler has been shut down
+2024-12-28 00:02:37,961 - INFO - USE_TESTNET value from env: true
+2024-12-28 00:02:37,961 - INFO - Testnet mode: True
+2024-12-28 00:02:37,961 - INFO - API Key found: Yes
+2024-12-28 00:02:37,961 - INFO - API Secret found: Yes
+2024-12-28 00:02:39,115 - INFO - Initialized Binance Testnet client successfully
+2024-12-28 00:02:39,800 - INFO - Successfully connected to Binance Testnet
+2024-12-28 00:04:20,722 - INFO - USE_TESTNET value from env: true
+2024-12-28 00:04:20,722 - INFO - Testnet mode: True
+2024-12-28 00:04:20,722 - INFO - API Key found: Yes
+2024-12-28 00:04:20,722 - INFO - API Secret found: Yes
+2024-12-28 00:04:21,592 - INFO - Initialized Binance Testnet client successfully
+2024-12-28 00:04:21,902 - INFO - Successfully connected to Binance Testnet
+2024-12-28 00:04:24,078 - INFO - Successfully loaded model, scaler, and feature names
+2024-12-28 00:04:24,169 - INFO - Initializing trading bot...
+2024-12-28 00:04:24,175 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2024-12-28 00:04:24,175 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2024-12-28 00:04:24,175 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2024-12-28 00:04:24,463 - INFO - Initial USDT balance: 11434.150082
+2024-12-28 00:04:24,468 - WARNING - ==================================================
+2024-12-28 00:04:24,472 - WARNING - TESTNET MODE - Paper Trading Only
+2024-12-28 00:04:24,472 - WARNING - ==================================================
+2024-12-28 00:04:24,477 - INFO - Trading bot initialized successfully
+2024-12-28 00:04:24,477 - INFO - ==================================================
+2024-12-28 00:04:24,483 - INFO - Starting Binance Trading Bot
+2024-12-28 00:04:24,485 - INFO - Mode: TESTNET (Paper Trading)
+2024-12-28 00:04:24,485 - INFO - Trading pairs: AMBUSDT, ARUSDT, AIUSDT
+2024-12-28 00:04:24,489 - INFO - ==================================================
+2024-12-28 00:04:24,489 - INFO - Starting trading bot...
+2024-12-28 00:04:24,500 - INFO - Added job "Hourly Trading Execution" to job store "default"
+2024-12-28 00:04:24,503 - INFO - Added job "Position Management" to job store "default"
+2024-12-28 00:04:24,504 - INFO - Added job "Daily Counter Reset" to job store "default"
+2024-12-28 00:04:24,509 - INFO - Scheduler started
+2024-12-28 00:04:24,512 - INFO - Trade executor scheduler started
+2024-12-28 00:04:24,813 - ERROR - Error starting WebSocket: module 'websocket' has no attribute 'WebSocketApp'
+2024-12-28 00:04:24,813 - INFO - Started streaming for AMBUSDT
+2024-12-28 00:04:24,827 - INFO - Started streaming for AMBUSDT
+2024-12-28 00:04:25,203 - ERROR - Error starting WebSocket: module 'websocket' has no attribute 'WebSocketApp'
+2024-12-28 00:04:25,203 - INFO - Started streaming for ARUSDT
+2024-12-28 00:04:25,208 - INFO - Started streaming for ARUSDT
+2024-12-28 00:04:25,560 - ERROR - Error starting WebSocket: module 'websocket' has no attribute 'WebSocketApp'
+2024-12-28 00:04:25,560 - INFO - Started streaming for AIUSDT
+2024-12-28 00:04:25,568 - INFO - Started streaming for AIUSDT
+2024-12-28 00:04:25,568 - INFO - Trading bot started successfully
+2024-12-28 00:04:34,408 - INFO - Shutdown signal received, stopping bot...
+2024-12-28 00:04:34,408 - INFO - Stopping trading bot...
+2024-12-28 00:04:34,415 - INFO - Stopped streaming for AMBUSDT
+2024-12-28 00:04:34,416 - INFO - Stopped streaming for AMBUSDT
+2024-12-28 00:04:34,418 - INFO - Stopped streaming for ARUSDT
+2024-12-28 00:04:34,422 - INFO - Stopped streaming for ARUSDT
+2024-12-28 00:04:34,428 - INFO - Stopped all streams
+2024-12-28 00:04:34,432 - INFO - Stopped streaming for AIUSDT
+2024-12-28 00:04:34,434 - INFO - Stopped streaming for AIUSDT
+2024-12-28 00:04:34,438 - INFO - Scheduler has been shut down
+2024-12-28 00:04:34,438 - INFO - Trade executor scheduler stopped
+2024-12-28 00:04:34,441 - INFO - Trading bot stopped successfully

@@ -1,0 +1,93 @@
+{
+  "portfolio_metrics": {
+    "total_return": 88.01909648640459,
+    "annual_return": 0.12645178231008858,
+    "sharpe_ratio": 3.578138132143789,
+    "max_drawdown": -0.07844753032858243,
+    "win_rate": 0.7033632529469017,
+    "total_trades": 9247
+  },
+  "symbol_metrics": {
+    "ACAUSDT": {
+      "total_return": 0.7546956837077166,
+      "annual_return": 0.15239258723330407,
+      "sharpe_ratio": 2.7699609742421303,
+      "max_drawdown": -0.07844753032858243,
+      "win_rate": 0.7232049947970863,
+      "total_trades": 961
+    },
+    "ACXUSDT": {
+      "total_return": 0.46242612995410903,
+      "annual_return": 0.2070525931376006,
+      "sharpe_ratio": 4.5847613705341415,
+      "max_drawdown": -0.019257923277210653,
+      "win_rate": 0.7204724409448819,
+      "total_trades": 508
+    },
+    "ADXUSDT": {
+      "total_return": 0.6277227386711124,
+      "annual_return": 0.13076313208780022,
+      "sharpe_ratio": 5.306176728910328,
+      "max_drawdown": -0.019489518513839177,
+      "win_rate": 0.7846938775510204,
+      "total_trades": 980
+    },
+    "AIUSDT": {
+      "total_return": 0.9706366102673494,
+      "annual_return": 0.18662956590323887,
+      "sharpe_ratio": 5.9809022660901165,
+      "max_drawdown": -0.007304832356712421,
+      "win_rate": 0.7469879518072289,
+      "total_trades": 996
+    },
+    "AMBUSDT": {
+      "total_return": 1.0558008122679188,
+      "annual_return": 0.19936168468003101,
+      "sharpe_ratio": 6.600692635957128,
+      "max_drawdown": -0.026745687367749293,
+      "win_rate": 0.8234683281412254,
+      "total_trades": 963
+    },
+    "APEUSDT": {
+      "total_return": 0.5063012802345193,
+      "annual_return": 0.1088649692399386,
+      "sharpe_ratio": 3.3696117916259483,
+      "max_drawdown": -0.015166783762685654,
+      "win_rate": 0.6790890269151139,
+      "total_trades": 966
+    },
+    "ARUSDT": {
+      "total_return": 0.9859727389152351,
+      "annual_return": 0.18895230088552895,
+      "sharpe_ratio": 6.780617129466201,
+      "max_drawdown": -0.01346258511510312,
+      "win_rate": 0.8034447821681864,
+      "total_trades": 987
+    },
+    "ASTRUSDT": {
+      "total_return": 0.5565476676865007,
+      "annual_return": 0.11808135301542944,
+      "sharpe_ratio": 4.252861537828867,
+      "max_drawdown": -0.008780273100595926,
+      "win_rate": 0.7168998923573735,
+      "total_trades": 929
+    },
+    "ATAUSDT": {
+      "total_return": 0.06004961942193221,
+      "annual_return": 0.014818999684321321,
+      "sharpe_ratio": -0.21819729597487894,
+      "max_drawdown": -0.04753530333676714,
+      "win_rate": 0.5170278637770898,
+      "total_trades": 969
+    },
+    "BBUSDT": {
+      "total_return": 0.06577536633068526,
+      "annual_return": 0.016198921343983708,
+      "sharpe_ratio": -0.1234038375555453,
+      "max_drawdown": -0.03675319785359976,
+      "win_rate": 0.5273279352226721,
+      "total_trades": 988
+    }
+  },
+  "backtest_date": "2024-12-27T23:22:41.008281"
+}

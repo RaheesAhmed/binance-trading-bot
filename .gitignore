@@ -1,0 +1,5 @@
+/node_modules
+/venv
+.cursorrules
+.env
+__pycache__
