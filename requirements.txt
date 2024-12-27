@@ -7,3 +7,6 @@ APScheduler>=3.9.1
 scikit-learn>=0.24.2
 joblib>=1.1.0
 ta>=0.7.0  # Technical Analysis library
+matplotlib>=3.4.3
+seaborn>=0.11.2
+plotly>=5.3.1  # Interactive plots

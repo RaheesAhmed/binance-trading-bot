@@ -412,3 +412,117 @@
 - Max Drawdown: $0.00
 - Risk-Adjusted Return: 0.00
 2024-12-28 00:24:26,149 - INFO - Enhanced trading bot stopped successfully
+2024-12-28 00:24:35,495 - INFO - USE_TESTNET value from env: true
+2024-12-28 00:24:35,495 - INFO - Testnet mode: True
+2024-12-28 00:24:35,495 - INFO - API Key found: Yes
+2024-12-28 00:24:35,495 - INFO - API Secret found: Yes
+2024-12-28 00:24:36,464 - INFO - Initialized Binance Testnet client successfully
+2024-12-28 00:24:37,109 - INFO - Successfully connected to Binance Testnet
+2024-12-28 00:24:39,938 - INFO - Successfully loaded model, scaler, and feature names
+2024-12-28 00:24:40,005 - INFO - Risk Manager initialized with:
+- Max daily loss: 2.0%
+- Max position size: 5.0%
+- Risk per trade: 1.0%
+2024-12-28 00:24:40,015 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2024-12-28 00:24:40,016 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2024-12-28 00:24:40,016 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2024-12-28 00:24:40,016 - INFO - Scheduler jobs configured successfully
+2024-12-28 00:24:40,296 - INFO - Initial USDT balance: 11434.150082
+2024-12-28 00:24:40,307 - WARNING - ==================================================
+2024-12-28 00:24:40,312 - WARNING - TESTNET MODE - Paper Trading Only
+2024-12-28 00:24:40,317 - WARNING - ==================================================
+2024-12-28 00:24:40,319 - INFO - Starting trade executor with scheduler...
+2024-12-28 00:24:40,323 - INFO - Starting trading bot with scheduler...
+2024-12-28 00:24:40,339 - INFO - Added job "Hourly Trading Execution" to job store "default"
+2024-12-28 00:24:40,339 - INFO - Added job "Position Management" to job store "default"
+2024-12-28 00:24:40,345 - INFO - Added job "Daily Counter Reset" to job store "default"
+2024-12-28 00:24:40,349 - INFO - Scheduler started
+2024-12-28 00:24:40,356 - INFO - Scheduler started successfully
+2024-12-28 00:25:00,067 - INFO - Running job "Position Management (trigger: cron[minute='*/5'], next run at: 2024-12-28 00:25:00 PKT)" (scheduled at 2024-12-28 00:25:00+05:00)
+2024-12-28 00:25:00,067 - INFO - Job "Position Management (trigger: cron[minute='*/5'], next run at: 2024-12-28 00:30:00 PKT)" executed successfully
+2024-12-28 00:25:00,073 - INFO - Job completed successfully: position_management
+2024-12-28 00:29:17,991 - INFO - Shutting down trading bot...
+2024-12-28 00:29:17,997 - INFO - Scheduler has been shut down
+2024-12-28 00:29:32,178 - INFO - USE_TESTNET value from env: true
+2024-12-28 00:29:32,178 - INFO - Testnet mode: True
+2024-12-28 00:29:32,178 - INFO - API Key found: Yes
+2024-12-28 00:29:32,179 - INFO - API Secret found: Yes
+2024-12-28 00:29:33,219 - INFO - Initialized Binance Testnet client successfully
+2024-12-28 00:29:33,912 - INFO - Successfully connected to Binance Testnet
+2024-12-28 00:29:36,280 - INFO - Successfully loaded model, scaler, and feature names
+2024-12-28 00:29:36,292 - ERROR - Fatal error: Must use production client for real money trading
+2024-12-28 00:31:32,106 - INFO - USE_TESTNET value from env: false
+2024-12-28 00:31:32,106 - INFO - Testnet mode: False
+2024-12-28 00:31:32,106 - ERROR - Production mode is not allowed! Please set USE_TESTNET=true in .env
+2024-12-28 00:32:43,877 - INFO - USE_TESTNET value from env: false
+2024-12-28 00:32:43,877 - INFO - Testnet mode: False
+2024-12-28 00:32:43,877 - ERROR - Production mode is not allowed! Please set USE_TESTNET=true in .env
+2024-12-28 00:34:56,287 - INFO - USE_TESTNET value from env: true
+2024-12-28 00:34:56,287 - INFO - Testnet mode: True
+2024-12-28 00:34:56,287 - INFO - API Key found: Yes
+2024-12-28 00:34:56,287 - INFO - API Secret found: Yes
+2024-12-28 00:34:57,152 - INFO - Initialized Binance Testnet client successfully
+2024-12-28 00:34:57,520 - INFO - Successfully connected to Binance Testnet
+2024-12-28 00:35:00,352 - INFO - Successfully loaded model, scaler, and feature names
+2024-12-28 00:35:00,684 - WARNING - ==================================================
+2024-12-28 00:35:00,702 - WARNING - TESTNET MODE - Paper Trading Only
+2024-12-28 00:35:00,703 - WARNING - Maximum position size: $1.00
+2024-12-28 00:35:00,704 - WARNING - Current USDT balance: $11434.15
+2024-12-28 00:35:00,708 - WARNING - ==================================================
+2024-12-28 00:35:00,708 - INFO - Training model for AMBUSDT using last 30 days of data...
+2024-12-28 00:35:02,162 - INFO - Model trained and saved successfully for AMBUSDT
+2024-12-28 00:35:02,162 - INFO - Training model for ARUSDT using last 30 days of data...
+2024-12-28 00:35:03,408 - INFO - Model trained and saved successfully for ARUSDT
+2024-12-28 00:35:03,408 - INFO - Training completed. Exiting...
+2024-12-28 00:35:26,410 - INFO - USE_TESTNET value from env: true
+2024-12-28 00:35:26,410 - INFO - Testnet mode: True
+2024-12-28 00:35:26,410 - INFO - API Key found: Yes
+2024-12-28 00:35:26,410 - INFO - API Secret found: Yes
+2024-12-28 00:35:27,005 - INFO - Initialized Binance Testnet client successfully
+2024-12-28 00:35:27,920 - INFO - Successfully connected to Binance Testnet
+2024-12-28 00:35:30,398 - INFO - Successfully loaded model, scaler, and feature names
+2024-12-28 00:35:30,802 - WARNING - ==================================================
+2024-12-28 00:35:30,802 - WARNING - TESTNET MODE - Paper Trading Only
+2024-12-28 00:35:30,818 - WARNING - Maximum position size: $1.00
+2024-12-28 00:35:30,822 - WARNING - Current USDT balance: $11434.15
+2024-12-28 00:35:30,826 - WARNING - ==================================================
+2024-12-28 00:35:30,826 - INFO - Starting real money trader...
+2024-12-28 00:35:30,833 - INFO - Training model for AMBUSDT using last 30 days of data...
+2024-12-28 00:35:31,926 - INFO - Model trained and saved successfully for AMBUSDT
+2024-12-28 00:35:31,926 - INFO - Training model for ARUSDT using last 30 days of data...
+2024-12-28 00:35:33,632 - INFO - Model trained and saved successfully for ARUSDT
+2024-12-28 00:35:33,632 - INFO - Models trained successfully
+2024-12-28 00:35:35,503 - INFO - Prediction for AMBUSDT: {'success': True, 'symbol': 'AMBUSDT', 'prediction': 0, 'confidence': 0.5165643118106251, 'current_price': 0.00749, 'timestamp': '2024-12-28T00:35:35.503819'}
+2024-12-28 00:35:35,510 - INFO - Confidence too low: 51.66%
+2024-12-28 00:35:36,758 - INFO - Prediction for ARUSDT: {'success': True, 'symbol': 'ARUSDT', 'prediction': 0, 'confidence': 0.6770772075134935, 'current_price': 16.98, 'timestamp': '2024-12-28T00:35:36.758021'}
+2024-12-28 00:35:36,758 - INFO - Confidence too low: 67.71%
+2024-12-28 00:36:38,899 - INFO - Prediction for AMBUSDT: {'success': True, 'symbol': 'AMBUSDT', 'prediction': 0, 'confidence': 0.5165643118106251, 'current_price': 0.00749, 'timestamp': '2024-12-28T00:36:38.898815'}
+2024-12-28 00:36:38,902 - INFO - Confidence too low: 51.66%
+2024-12-28 00:36:40,097 - INFO - Prediction for ARUSDT: {'success': True, 'symbol': 'ARUSDT', 'prediction': 0, 'confidence': 0.6695801314901019, 'current_price': 17.04, 'timestamp': '2024-12-28T00:36:40.097721'}
+2024-12-28 00:36:40,105 - INFO - Confidence too low: 66.96%
+2024-12-28 00:37:41,959 - INFO - Prediction for AMBUSDT: {'success': True, 'symbol': 'AMBUSDT', 'prediction': 0, 'confidence': 0.5353709485574241, 'current_price': 0.00749, 'timestamp': '2024-12-28T00:37:41.959736'}
+2024-12-28 00:37:41,973 - INFO - Confidence too low: 53.54%
+2024-12-28 00:37:42,708 - INFO - Prediction for ARUSDT: {'success': True, 'symbol': 'ARUSDT', 'prediction': 0, 'confidence': 0.6680629297716214, 'current_price': 17.06, 'timestamp': '2024-12-28T00:37:42.708881'}
+2024-12-28 00:37:42,708 - INFO - Confidence too low: 66.81%
+2024-12-28 00:38:45,004 - INFO - Prediction for AMBUSDT: {'success': True, 'symbol': 'AMBUSDT', 'prediction': 0, 'confidence': 0.5434131414203027, 'current_price': 0.0075, 'timestamp': '2024-12-28T00:38:45.004898'}
+2024-12-28 00:38:45,005 - INFO - Confidence too low: 54.34%
+2024-12-28 00:38:46,069 - INFO - Prediction for ARUSDT: {'success': True, 'symbol': 'ARUSDT', 'prediction': 0, 'confidence': 0.6695801314901019, 'current_price': 17.04, 'timestamp': '2024-12-28T00:38:46.069947'}
+2024-12-28 00:38:46,070 - INFO - Confidence too low: 66.96%
+2024-12-28 00:39:48,430 - INFO - Prediction for AMBUSDT: {'success': True, 'symbol': 'AMBUSDT', 'prediction': 0, 'confidence': 0.5355226535872365, 'current_price': 0.0075, 'timestamp': '2024-12-28T00:39:48.430775'}
+2024-12-28 00:39:48,432 - INFO - Confidence too low: 53.55%
+2024-12-28 00:39:50,456 - INFO - Prediction for ARUSDT: {'success': True, 'symbol': 'ARUSDT', 'prediction': 0, 'confidence': 0.6709548117243125, 'current_price': 17.0, 'timestamp': '2024-12-28T00:39:50.456337'}
+2024-12-28 00:39:50,456 - INFO - Confidence too low: 67.10%
+2024-12-28 00:40:52,219 - INFO - Prediction for AMBUSDT: {'success': True, 'symbol': 'AMBUSDT', 'prediction': 0, 'confidence': 0.5271609028008573, 'current_price': 0.00751, 'timestamp': '2024-12-28T00:40:52.219457'}
+2024-12-28 00:40:52,219 - INFO - Confidence too low: 52.72%
+2024-12-28 00:40:52,868 - INFO - Prediction for ARUSDT: {'success': True, 'symbol': 'ARUSDT', 'prediction': 0, 'confidence': 0.6709548117243125, 'current_price': 17.0, 'timestamp': '2024-12-28T00:40:52.868579'}
+2024-12-28 00:40:52,868 - INFO - Confidence too low: 67.10%
+2024-12-28 00:40:56,192 - INFO - Shutting down real money trader...
+2024-12-28 00:41:15,679 - INFO - USE_TESTNET value from env: true
+2024-12-28 00:41:15,679 - INFO - Testnet mode: True
+2024-12-28 00:41:15,679 - INFO - API Key found: Yes
+2024-12-28 00:41:15,679 - INFO - API Secret found: Yes
+2024-12-28 00:41:16,700 - INFO - Initialized Binance Testnet client successfully
+2024-12-28 00:41:17,106 - INFO - Successfully connected to Binance Testnet
+2024-12-28 00:41:19,453 - INFO - Successfully loaded model, scaler, and feature names
+2024-12-28 00:41:19,473 - INFO - Running backtest...
+2024-12-28 00:41:20,145 - ERROR - Fatal error: No module named 'seaborn'
